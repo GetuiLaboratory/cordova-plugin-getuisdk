@@ -1,3 +1,6 @@
+var exec = require('cordova/exec');
+var	argscheck = require('cordova/argscheck');
+
 var GeTuiSdk = {
     GeTuiSdkStatus: {
         KSdkStatusStarting: 0,
