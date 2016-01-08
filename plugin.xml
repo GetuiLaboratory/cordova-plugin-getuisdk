@@ -53,6 +53,7 @@
         <framework src="CFNetwork.framework" />
         <framework src="CoreTelephony.framework" />
         <framework src="Security.framework" />
+        <framework src="SystemConfiguration.framework" />
         <framework src="AVFoundation.framework" />
         
         
