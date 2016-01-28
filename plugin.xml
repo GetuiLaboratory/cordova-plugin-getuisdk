@@ -92,9 +92,9 @@
             <!-- 浮动通知权限 -->
             <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
             <!-- 自定义权限 -->
-            <uses-permission android:name="getui.permission.GetuiService.com.igexin.getui.phonegap.demo" /><!--替换为第三方应用的包名-->
+            <uses-permission android:name="getui.permission.GetuiService.你的应用包名" />
             <permission
-                android:name="getui.permission.GetuiService.com.igexin.getui.phonegap.demo"
+                android:name="getui.permission.GetuiService.你的应用包名"
                 android:protectionLevel="normal" >
             </permission><!--替换为第三方应用的包名-->
             <!-- 个推SDK权限配置结束 -->
@@ -105,13 +105,13 @@
             <!-- 配置的第三方参数属性 -->
             <meta-data
                 android:name="PUSH_APPID"
-                android:value="y9dDAq27RZ7l0FjmoNWPX3" /><!--替换为第三方应用的APPID-->
+                android:value="你的appid>"/>
             <meta-data
                 android:name="PUSH_APPKEY"
-                android:value="NIyM21g4cF7Ah4LEwc3XwA" /><!--替换为第三方应用的APPKEY-->
+                android:value="你的appkey>"/>
             <meta-data
                 android:name="PUSH_APPSECRET"
-                android:value="g6rTHYlK3s5HNDDKRQQ1F4" /><!--替换为第三方应用的APPSECRET-->
+                android:value="你的appsecret"/>
             <!-- 配置SDK核心服务 -->
             <service
                 android:name="com.igexin.sdk.PushService"
@@ -170,8 +170,8 @@
             <provider
                 android:name="com.igexin.download.DownloadProvider"
                 android:exported="true"
-                android:authorities="downloads.com.igexin.getui.phonegap.demo"
-                android:process=":pushservice" /><!--替换为第三方应用的包名-->
+                android:authorities="downloads.你的应用包名"
+                android:process=":pushservice" />
 
             <activity
                 android:name="com.igexin.getuiext.activity.GetuiExtActivity"
@@ -187,8 +187,7 @@
                 android:exported="false" >
                 <intent-filter>
                     <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
-                    <!--替换为第三方应用的APPID-->
-                    <action android:name="com.igexin.sdk.action.y9dDAq27RZ7l0FjmoNWPX3" />
+                    <action android:name="com.igexin.sdk.action.你的appid" />
                 </intent-filter>
             </receiver>
             <service
