@@ -105,13 +105,16 @@
             <!-- 配置的第三方参数属性 -->
             <meta-data
                 android:name="PUSH_APPID"
-                android:value="你的appid>"/>
+                android:value="你的appid"/>
             <meta-data
                 android:name="PUSH_APPKEY"
-                android:value="你的appkey>"/>
+                android:value="你的appkey"/>
             <meta-data
                 android:name="PUSH_APPSECRET"
                 android:value="你的appsecret"/>
+            <meta-data
+                android:name="PUSH_MASTERSECRET"
+                android:value="你的mastersecret"/>
             <!-- 配置SDK核心服务 -->
             <service
                 android:name="com.igexin.sdk.PushService"
@@ -207,7 +210,7 @@
 
         <resource-file src="android/res/layout/getui_notification.xml" target="res/layout/getui_notification.xml" />
         <resource-file src="android/res/layout/increment_popup_dialog.xml" target="res/layout/increment_popup_dialog.xml" />
-        <resource-file src="android/res/layout/getui_notification.xml" target="res/layout/gnotification_inc.xml" />
+        <resource-file src="android/res/layout/notification_inc.xml" target="res/layout/notification_inc.xml" />
 
         <resource-file src="android/res/drawable-hdpi/push.png" target="res/drawable-hdpi/push.png" />
         <resource-file src="android/res/drawable-ldpi/push.png" target="res/drawable-ldpi/push.png" />
