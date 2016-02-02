@@ -1,4 +1,4 @@
-var exec = require('cordova/exec');
+cordova.define("cordova-plugin-getuisdk.GeTuiSdkPlugin", function(require, exports, module) { var exec = require('cordova/exec');
 var argscheck = require('cordova/argscheck');
 var callback_impl;
 
@@ -10,8 +10,7 @@ var GeTuiSdkPlugin = {
 		error_repeat : 20003,// 设置标签失败，标签重复
 		error_unbind : 20004,// 设置标签失败，aidl服务未绑定
 		error_exception : 20005,// 设置标签失败，setTag异常
-		error_empty : 20006
-	// SETTAG_ERROR_NULL : tag为空
+		error_empty : 20006 //tag为空
 	},
 
 	callback_init : function(obj) {
@@ -27,9 +26,9 @@ var GeTuiSdkPlugin = {
 	},
 
 	// sdk 初始化
-	initialize : function(appid) {
+	initialize : function() {
 		argscheck.checkArgs('S', 'GeTuiSdkPlugin.initialize', arguments);
-		exec(null, null, 'GeTuiSdkPlugin', 'initialize', [ appid ]);
+		exec(null, null, 'GeTuiSdkPlugin', 'initialize', []);
 	},
 
 	// 获取当前sdk版本号
@@ -38,7 +37,7 @@ var GeTuiSdkPlugin = {
 		exec(callback, null, 'GeTuiSdkPlugin', 'getVersion', []);
 	},
 
-	// 为当前用户设置一组标签，后续推送可以指定标签名进行定向推送。
+	// 为当前用户设置一组标签，后续推送可以指定标签名进行定向推送。例如'man,women,old'
 	setTag : function(callback, tags) {
 		argscheck.checkArgs('FS', 'GeTuiSdkPlugin.setTag', arguments);
 		exec(callback, null, 'GeTuiSdkPlugin', 'setTag', [ tags ]);
@@ -105,15 +104,17 @@ var GeTuiSdkPlugin = {
 		exec(callback, null, 'GeTuiSdkPlugin', 'unSelfBindAlias', [ alias ]);
 	},
 
-	notifaction:function(appkey, appid, cid, mast) {
-		argscheck.checkArgs('SSSS', 'GeTuiSdkPlugin.notifaction', arguments);
-		exec(null, null, 'GeTuiSdkPlugin', 'notifaction', [appkey, appid, cid, mast]);
+	notifaction:function(cid, mast) {
+		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.notifaction', arguments);
+		exec(null, null, 'GeTuiSdkPlugin', 'notifaction', [cid, mast]);
 	},
 
-	transmission:function(appkey, appid, cid, mast) {
-		argscheck.checkArgs('SSSS', 'GeTuiSdkPlugin.transmission', arguments);
-		exec(null, null, 'GeTuiSdkPlugin', 'transmission', [appkey, appid, cid, mast]);
+	transmission:function(cid, mast) {
+		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.transmission', arguments);
+		exec(null, null, 'GeTuiSdkPlugin', 'transmission', [cid, mast]);
 	}
 };
 
 module.exports = GeTuiSdkPlugin;
+
+});

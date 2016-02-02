@@ -21,6 +21,8 @@ import com.igexin.sdk.Tag;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -31,6 +33,10 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
 	private Context con = null;
 	private CordovaInterface cordova;
 	public static CordovaWebView cordovaWebView;
+	
+	private String appkey = "";
+    private String appsecret = "";
+    private String appid = "";
 
     @Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -38,13 +44,25 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
 		this.cordova = cordova;
 		cordovaWebView = webView;
 		con = cordova.getActivity().getApplicationContext();
+		
+		try {
+			String packageName = con.getPackageName();
+            ApplicationInfo appInfo = con.getPackageManager().getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                appid = appInfo.metaData.getString("PUSH_APPID");
+                appsecret = appInfo.metaData.getString("PUSH_APPSECRET");
+                appkey = appInfo.metaData.getString("PUSH_APPKEY");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		if ("initialize".equals(action)) {
 			if (args != null) {
-				initialize_getui(args.getString(0));
+				initialize_getui(appid);
 			}
 		} else if ("getVersion".equals(action)) {
 			getVersion();
@@ -106,11 +124,11 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
 			}
 		} else if ("transmission".equals(action)) {
 			if (args != null) {
-				transmission(args.getString(0), args.getString(1), args.getString(2), args.getString(3));
+				transmission(args.getString(0), args.getString(1));
 			}
 		} else if ("notifaction".equals(action)) {
 			if (args != null) {
-				notifaction(args.getString(0), args.getString(1), args.getString(2), args.getString(3));
+				notifaction(args.getString(0), args.getString(1));
 			}
 		} else {
 			return false;
@@ -245,7 +263,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
 		}
 	}
 
-	public void transmission(String appkey, String appid,String cid, String mast) {
+	public void transmission(String cid, String mastersecret) {
 		// !!!!!!注意：以下为个推服务端API1.0接口，仅供测试。不推荐在现网系统使用1.0版服务端接口，请参考最新的个推服务端API接口文档，使用最新的2.0版接口
 		Map<String, Object> param = new HashMap<String, Object>();
 		 // pushmessage为接口名，注意全部小写
@@ -262,12 +280,12 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
         param.put("expire", 3600); // 消息超时时间，单位为秒，可选
 
         // 生成Sign值，用于鉴权
-        param.put("sign", GetuiSdkHttpPost.makeSign(mast, param));
+        param.put("sign", GetuiSdkHttpPost.makeSign(mastersecret, param));
 
         GetuiSdkHttpPost.httpPost(param);
 	}
 	
-	public void notifaction(String appkey, String appid,String cid, String mast) {
+	public void notifaction(String cid, String mastersecret) {
 		// !!!!!!注意：以下为个推服务端API1.0接口，仅供测试。不推荐在现网系统使用1.0版服务端接口，请参考最新的个推服务端API接口文档，使用最新的2.0版接口
 		  Map<String, Object> param = new HashMap<String, Object>();
           param.put("action", "pushSpecifyMessage"); // pushSpecifyMessage为接口名，注意大小写
@@ -289,7 +307,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
           param.put("tokenMD5List", cidList);
 
           // 生成Sign值，用于鉴权，需要MasterSecret，请务必填写
-          param.put("sign", GetuiSdkHttpPost.makeSign(mast, param));
+          param.put("sign", GetuiSdkHttpPost.makeSign(mastersecret, param));
 
           // LinkMsg消息实体
           Map<String, Object> linkMsg = new HashMap<String, Object>();
