@@ -211,7 +211,7 @@
 
         <resource-file src="android/res/layout/getui_notification.xml" target="res/layout/getui_notification.xml" />
         <resource-file src="android/res/layout/increment_popup_dialog.xml" target="res/layout/increment_popup_dialog.xml" />
-        <resource-file src="android/res/layout/getui_notification.xml" target="res/layout/gnotification_inc.xml" />
+        <resource-file src="android/res/layout/notification_inc.xml" target="res/layout/notification_inc.xml" />
 
         <resource-file src="android/res/drawable-hdpi/push.png" target="res/drawable-hdpi/push.png" />
         <resource-file src="android/res/drawable-ldpi/push.png" target="res/drawable-ldpi/push.png" />
