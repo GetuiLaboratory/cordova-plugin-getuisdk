@@ -217,11 +217,11 @@
         <resource-file src="android/res/drawable-ldpi/push.png" target="res/drawable-ldpi/push.png" />
         <resource-file src="android/res/drawable-mdpi/push.png" target="res/drawable-mdpi/push.png" />
 
-        <source-file src="android/src/com/igexin/getui/phonegap/GetuiSdkHttpPost.java" target-dir="src/com/igexin/getui/phonegap" />
-        <source-file src="android/src/com/igexin/getui/phonegap/GeTuiSdkPlugin.java" target-dir="src/com/igexin/getui/phonegap" />
-        <source-file src="android/src/com/igexin/getui/phonegap/GeTuiSdkPushBean.java" target-dir="src/com/igexin/getui/phonegap" />
-        <source-file src="android/src/com/igexin/getui/phonegap/GetuiSdkPushCallBack.java" target-dir="src/com/igexin/getui/phonegap" />
-        <source-file src="android/src/com/igexin/getui/phonegap/GeTuiSdkPushReceiver.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/GetuiSdkHttpPost.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/GeTuiSdkPlugin.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/GeTuiSdkPushBean.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/cetuiSdkPushCallBack.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/GeTuiSdkPushReceiver.java" target-dir="src/com/igexin/getui/phonegap" />
 
     </platform>
 
