@@ -59,6 +59,10 @@
     </platform>
 
     <platform name="android">
+    	<preference name="PUSH_APPID"/>
+    	<preference name="PUSH_APPKEY"/>
+    	<preference name="PUSH_APPSECRET"/>
+
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="GeTuiSdkPlugin" >
                 <param name="android-package" value="com.igexin.getui.phonegap.GeTuiSdkPlugin"/>
@@ -92,9 +96,9 @@
             <!-- 浮动通知权限 -->
             <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
             <!-- 自定义权限 -->
-            <uses-permission android:name="getui.permission.GetuiService.你的应用包名" />
+            <uses-permission android:name="getui.permission.GetuiService.$PACKAGE_NAME" />
             <permission
-                android:name="getui.permission.GetuiService.你的应用包名"
+                android:name="getui.permission.GetuiService.$PACKAGE_NAME"
                 android:protectionLevel="normal" >
             </permission><!--替换为第三方应用的包名-->
             <!-- 个推SDK权限配置结束 -->
@@ -105,16 +109,13 @@
             <!-- 配置的第三方参数属性 -->
             <meta-data
                 android:name="PUSH_APPID"
-                android:value="你的appid"/>
+                android:value="$PUSH_APPID"/>
             <meta-data
                 android:name="PUSH_APPKEY"
-                android:value="你的appkey"/>
+                android:value="$PUSH_APPKEY"/>
             <meta-data
                 android:name="PUSH_APPSECRET"
-                android:value="你的appsecret"/>
-            <meta-data
-                android:name="PUSH_MASTERSECRET"
-                android:value="你的mastersecret"/>
+                android:value="$PUSH_APPSECRET"/>
             <!-- 配置SDK核心服务 -->
             <service
                 android:name="com.igexin.sdk.PushService"
@@ -173,7 +174,7 @@
             <provider
                 android:name="com.igexin.download.DownloadProvider"
                 android:exported="true"
-                android:authorities="downloads.你的应用包名"
+                android:authorities="downloads.$PACKAGE_NAME"
                 android:process=":pushservice" />
 
             <activity
@@ -190,7 +191,7 @@
                 android:exported="false" >
                 <intent-filter>
                     <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
-                    <action android:name="com.igexin.sdk.action.你的appid" />
+                    <action android:name="com.igexin.sdk.action.$PUSH_APPID" />
                 </intent-filter>
             </receiver>
             <service
