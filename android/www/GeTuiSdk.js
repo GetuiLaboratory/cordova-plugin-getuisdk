@@ -1,4 +1,5 @@
-cordova.define("cordova-plugin-getuisdk.GeTuiSdkPlugin", function(require, exports, module) { var exec = require('cordova/exec');
+
+var exec = require('cordova/exec');
 var argscheck = require('cordova/argscheck');
 var callback_impl;
 
@@ -116,5 +117,3 @@ var GeTuiSdkPlugin = {
 };
 
 module.exports = GeTuiSdkPlugin;
-
-});
