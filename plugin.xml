@@ -220,7 +220,7 @@
         <source-file src="android/src/GetuiSdkHttpPost.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/GeTuiSdkPlugin.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/GeTuiSdkPushBean.java" target-dir="src/com/igexin/getui/phonegap" />
-        <source-file src="android/src/cetuiSdkPushCallBack.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/GetuiSdkPushCallBack.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/GeTuiSdkPushReceiver.java" target-dir="src/com/igexin/getui/phonegap" />
 
     </platform>
