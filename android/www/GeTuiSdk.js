@@ -4,6 +4,7 @@ var argscheck = require('cordova/argscheck');
 var callback_impl;
 
 var GeTuiSdkPlugin = {
+	//设置标签返回状态
 	SetTagStatus : {
 		success : 0,// 设置标签成功
 		error_count : 20001,// 设置标签数量过大
@@ -13,12 +14,14 @@ var GeTuiSdkPlugin = {
 		error_exception : 20005,// 设置标签失败，setTag异常
 		error_empty : 20006 //tag为空
 	},
-
+	
+	//callback初始化
 	callback_init : function(obj) {
 		argscheck.checkArgs('F', 'GeTuiSdkPlugin.callback_init', arguments);
 		callback_impl = obj;
 	},
-
+	
+	//返回数据回调
 	callback_data : function(type, data) {
 		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.callback_init', arguments);
 		if (callback_impl != null) {
@@ -104,12 +107,14 @@ var GeTuiSdkPlugin = {
 		argscheck.checkArgs('FS', 'GeTuiSdkPlugin.unSelfBindAlias', arguments);
 		exec(callback, null, 'GeTuiSdkPlugin', 'unSelfBindAlias', [ alias ]);
 	},
-
+	
+	//通知测试
 	notifaction:function(cid, mast) {
 		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.notifaction', arguments);
 		exec(null, null, 'GeTuiSdkPlugin', 'notifaction', [cid, mast]);
 	},
-
+	
+	//透传数据测试
 	transmission:function(cid, mast) {
 		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.transmission', arguments);
 		exec(null, null, 'GeTuiSdkPlugin', 'transmission', [cid, mast]);
