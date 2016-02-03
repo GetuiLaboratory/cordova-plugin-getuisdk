@@ -139,7 +139,7 @@ GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(onSetPushMode);
 //个推平台申请的参数KAppId, KAppKey, KAppSecret
 GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret);
 ```
-## 相关文档
+## 参考文档
 [cordova常用命令](http://my.oschina.net/jack088/blog/390876?fromerr=f8h2gkFq)  
 
 [plugman使用](http://cordova.apache.org/docs/en/latest/plugin_ref/plugman.html)  
