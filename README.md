@@ -69,11 +69,6 @@ cordova build
 	
 ##### 回调函数
 ```
-//应用版本号返回
-function callbackVersion(version) {
-	//TODO version = 应用版本号           
-};
-
 //clinetid返回
 function onRegisterClient(clientId) {
 	//TODO clientId = clinetid   
@@ -129,7 +124,6 @@ function onSetPushMode(isModeOff, err) {
 ```
 ##### 初始化插件
 ```
-GeTuiSdk.version(callbackVersion);
 GeTuiSdk.setGeTuiSdkDidRegisterClientCallback(onRegisterClient);
 GeTuiSdk.setGeTuiSdkDidReceivePayloadCallback(onReceivePayload);
 GeTuiSdk.setGeTuiSdkDidSendMessageCallback(onSendMessage);
