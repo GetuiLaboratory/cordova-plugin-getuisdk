@@ -202,7 +202,7 @@
 
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
         <source-file src="android/GtSdkLib/GetuiExt-2.0.3.jar" target-dir="libs"/>
-        <source-file src="android/GtSdkLib/GetuiSDK2.7.0.0.jar" target-dir="libs"/>
+        <source-file src="android/GtSdkLib/GetuiSDK2.8.1.0.jar" target-dir="libs"/>
         <source-file src="android/GtSdkLib/json_simple-1.1.jar" target-dir="libs"/>
 
         <source-file src="android/GtSdkLib/armeabi/libgetuiext.so" target-dir="libs/armeabi" />
