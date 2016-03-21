@@ -45,7 +45,7 @@
 
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command {
     NSString *deviceToken = [command argumentAtIndex:0];
-    [GeTuiSdk retrivePayloadById:deviceToken];
+    [GeTuiSdk registerDeviceToken:deviceToken];
 }
 
 - (void)retrievePayloadById:(CDVInvokedUrlCommand *)command {
