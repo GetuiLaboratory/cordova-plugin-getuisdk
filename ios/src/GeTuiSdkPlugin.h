@@ -13,7 +13,9 @@
 - (void)startSdkWithAppId:(CDVInvokedUrlCommand *)command;
 - (void)destroy:(CDVInvokedUrlCommand *)command;
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command;
-- (void)retrievePayloadById:(CDVInvokedUrlCommand *)command;
+
+//- (void)retrievePayloadById:(CDVInvokedUrlCommand *)command;（已弃用）
+
 - (void)setPushModeOff:(CDVInvokedUrlCommand *)command;
 - (void)setPushModeOn:(CDVInvokedUrlCommand *)command;
 - (void)bindAlias:(CDVInvokedUrlCommand *)command;
@@ -29,6 +31,8 @@
 - (void)clientId:(CDVInvokedUrlCommand *)command;
 - (void)setAllowedRotateUiOrientations:(CDVInvokedUrlCommand *)command;
 - (void)clearAllNotificationForNotificationBar:(CDVInvokedUrlCommand *)command;
+- (void)setBadge:(CDVInvokedUrlCommand*)command;
+- (void)resetBadge:(CDVInvokedUrlCommand*)command;
 
 - (void)setGeTuiSdkDidRegisterClientCallback:(CDVInvokedUrlCommand *)command;
 - (void)setGeTuiSdkDidReceivePayloadCallback:(CDVInvokedUrlCommand *)command;
@@ -39,8 +43,12 @@
 
 //protocol GexinSdkDelegate
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId;
-- (void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId
-                     andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId;
+
+//- (void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId
+//                     andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId;（已弃用）
+
+- (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId
+                             andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId;
 - (void)GeTuiSdkDidSendMessage:(NSString *)messageId result:(int)result;
 - (void)GeTuiSdkDidOccurError:(NSError *)error;
 - (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus;

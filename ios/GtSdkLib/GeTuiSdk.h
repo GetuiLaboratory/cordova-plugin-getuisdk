@@ -31,9 +31,9 @@ typedef enum {
 + (void)startSdkWithAppId:(NSString *)appid appKey:(NSString *)appKey appSecret:(NSString *)appSecret delegate:(id<GeTuiSdkDelegate>)delegate;
 
 /**
- *  停止SDK，并且释放资源， 该方法已经弃用
+ *  停止SDK，并且释放资源（已弃用）
  */
-+ (void)stopSdk __attribute__((deprecated));
++ (void)stopSdk __deprecated;
 
 /**
  *  销毁SDK，并且释放资源
@@ -43,18 +43,19 @@ typedef enum {
 /**
  *  向个推服务器注册DeviceToken
  *
- *  @param deviceToken 推送时使用的deviceToken字符串
+ *  @param deviceToken 推送时使用的deviceToken
+ *
  */
 + (void)registerDeviceToken:(NSString *)deviceToken;
 
 /**
- *  根据payloadId取回Payload数据
+ *  根据payloadId取回Payload数据（已弃用）
  *
  *  @param payloadId 个推SDK获取到透传消息时返回的payloadId
  *
  *  @return 下发的消息数据
  */
-+ (NSData *)retrivePayloadById:(NSString *)payloadId;
++ (NSData *)retrivePayloadById:(NSString *)payloadId __deprecated;
 
 /**
  *  设置关闭推送模式
@@ -161,6 +162,19 @@ typedef enum {
  */
 + (void)clearAllNotificationForNotificationBar;
 
+/**
+ *  同步角标值到个推服务器
+ *  该方法只是同步角标值到个推服务器，本地仍须调用setApplicationIconBadgeNumber函数
+ *
+ *  @param value 角标数值
+ */
++ (void)setBadge:(NSUInteger)value;
+
+/**
+ * 复位角标，等同于"setBadge:0"
+ */
++ (void)resetBadge;
+
 @end
 
 #pragma mark - SDK Delegate
@@ -178,7 +192,7 @@ typedef enum {
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId;
 
 /**
- *  SDK通知收到个推推送的透传消息
+ *  SDK通知收到个推推送的透传消息（已弃用）
  *
  *  @param payloadId 代表推送消息的唯一id
  *  @param taskId    推送消息的任务id
@@ -187,7 +201,18 @@ typedef enum {
  *  @param appId     应用的appId
  *  说明: SDK会将推送消息在本地数据库中保留5天，请及时取出（See retrivePayloadById：），取出后消息将被删除。
  */
-- (void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId;
+- (void)GeTuiSdkDidReceivePayload:(NSString *)payloadId andTaskId:(NSString *)taskId andMessageId:(NSString *)aMsgId andOffLine:(BOOL)offLine fromApplication:(NSString *)appId __deprecated;
+
+/**
+ *  SDK通知收到个推推送的透传消息
+ *
+ *  @param payloadData 推送消息内容
+ *  @param taskId      推送消息的任务id
+ *  @param msgId       推送消息的messageid
+ *  @param offLine     是否是离线消息，YES.是离线消息
+ *  @param appId       应用的appId
+ */
+- (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId;
 
 /**
  *  SDK通知发送上行消息结果，收到sendMessage消息回调

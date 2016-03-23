@@ -1,4 +1,4 @@
-var exec = require('cordova/exec');
+cordova.define("cordova-plugin-getuisdk.GeTuiSdk", function(require, exports, module) { var exec = require('cordova/exec');
 var	argscheck = require('cordova/argscheck');
 
 var GeTuiSdk = {
@@ -7,7 +7,7 @@ var GeTuiSdk = {
         KSdkStatusStarted: 1,
         KSdkStatusStoped: 2
     },
-               
+
 	startSdkWithAppId: function(appid, appKey, appSecret) {
 		argscheck.checkArgs('sss', 'GeTuiSdk.startSdkWithAppId', arguments);
 		exec(null, null, 'GeTuiSdk', 'startSdkWithAppId', [appid, appKey, appSecret]);
@@ -20,11 +20,6 @@ var GeTuiSdk = {
 	registerDeviceToken: function(deviceToken) {
 		argscheck.checkArgs('s', 'GeTuiSdk.registerDeviceToken', arguments);
 		exec(null, null, 'GeTuiSdk', 'registerDeviceToken', [deviceToken]);
-	},
-
-	retrievePayloadById: function(callback, payloadId) {
-		argscheck.checkArgs('fs', 'GeTuiSdk.retrievePayloadById', arguments);
-		exec(callback, null, 'GeTuiSdk', 'retrievePayloadById', [payloadId]);
 	},
 
 	setPushModeOff: function() {
@@ -67,6 +62,15 @@ var GeTuiSdk = {
 	runBackgroundDisable: function(isEnable) {
 		exec(successCallback, null, 'GeTuiSdk', 'runBackgroundDisable', []);
 	},
+               
+    setBadge:function(badge) {
+        argscheck.checkArgs('n', 'GeTuiSdk.setBadge', arguments)
+        exec(null, null, 'GeTuiSdk', 'setBadge', [badge])
+    },
+               
+    resetBadge:function() {
+        exec(null, null, 'GeTuiSdk', 'resetBadge', [])
+    },
 
 	resume: function() {
 		exec(null, null, 'GeTuiSdk', 'resume', []);
@@ -76,7 +80,7 @@ var GeTuiSdk = {
 		argscheck.checkArgs('f', 'GeTuiSdk.version', arguments);
 		exec(callback, null, 'GeTuiSdk', 'version', []);
 	},
-               
+
     status: function(callback) {
         argscheck.checkArgs('f', 'GeTuiSdk.status', arguments);
         exec(callback, null, 'GeTuiSdk', 'status', []);
@@ -95,7 +99,7 @@ var GeTuiSdk = {
 	clearAllNotificationForNotificationBar: function() {
 		exec(null, null, 'GeTuiSdk', 'clearAllNotificationForNotificationBar', []);
 	},
-               
+
     setGeTuiSdkDidRegisterClientCallback: function(callback) {
         argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidRegisterClientCallback', arguments);
         exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidRegisterClientCallback', []);
@@ -105,12 +109,12 @@ var GeTuiSdk = {
         argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidReceivePayloadCallback', arguments);
         exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidReceivePayloadCallback', []);
     },
-               
+
     setGeTuiSdkDidSendMessageCallback: function(callback) {
         argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidSendMessageCallback', arguments);
         exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidSendMessageCallback', []);
     },
-               
+
     setGeTuiSdkDidOccurErrorCallback: function(callback) {
         argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidOccurErrorCallback', arguments);
         exec(null, callback, 'GeTuiSdk', 'setGeTuiSdkDidOccurErrorCallback', []);
@@ -129,3 +133,4 @@ var GeTuiSdk = {
 };
 
 module.exports = GeTuiSdk;
+});
