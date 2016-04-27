@@ -41,28 +41,71 @@ typedef enum {
 + (void)destroy;
 
 /**
+ *  恢复SDK运行,IOS7 以后支持Background Fetch方式，后台定期更新数据,该接口需要在Fetch起来后被调用，保证SDK 数据获取。
+ */
++ (void)resume;
+
+#pragma mark -
+
+/**
+ *  获取SDK版本号
+ *
+ *  @return 版本值
+ */
++ (NSString *)version;
+
+/**
+ *  获取SDK的Cid
+ *
+ *  @return Cid值
+ */
++ (NSString *)clientId;
+
+/**
+ *  获取SDK运行状态
+ *
+ *  @return 运行状态
+ */
++ (SdkStatus)status;
+
+#pragma mark -
+
+/**
+ *  是否允许SDK 后台运行（默认值：NO）
+ *  备注：可以未启动SDK就调用该方法
+ *  警告：该功能会和音乐播放冲突，使用时请注意
+ *
+ *  @param isEnable 支持当APP进入后台后，个推是否运行,YES.允许
+ */
++ (void)runBackgroundEnable:(BOOL)isEnable;
+
+/**
+ *  地理围栏功能，设置地理围栏是否运行
+ *  备注：SDK可以未启动就调用该方法
+ *
+ *  @param isEnable 设置地理围栏功能是否运行（默认值：NO）
+ *  @param isVerify 设置是否SDK主动弹出用户定位请求（默认值：NO）
+ */
++ (void)lbsLocationEnable:(BOOL)isEnable andUserVerify:(BOOL)isVerify;
+
+/**
+ *  设置处理显示的AlertView是否随屏幕旋转
+ *  备注：SDK可以未启动就调用该方法
+ *
+ *  @param orientations 支持的屏幕方向列表，具体值请参照UIInterfaceOrientation（From iOS SDK）
+ */
++ (void)setAllowedRotateUiOrientations:(NSArray *)orientations;
+
+#pragma mark -
+
+/**
  *  向个推服务器注册DeviceToken
+ *  备注：可以未启动SDK就调用该方法
  *
  *  @param deviceToken 推送时使用的deviceToken
  *
  */
 + (void)registerDeviceToken:(NSString *)deviceToken;
-
-/**
- *  根据payloadId取回Payload数据（已弃用）
- *
- *  @param payloadId 个推SDK获取到透传消息时返回的payloadId
- *
- *  @return 下发的消息数据
- */
-+ (NSData *)retrivePayloadById:(NSString *)payloadId __deprecated;
-
-/**
- *  设置关闭推送模式
- *
- *  @param isValue 消息推送开发，YES.关闭消息推送 NO.开启消息推送
- */
-+ (void)setPushModeForOff:(BOOL)isValue;
 
 /**
  *  绑定别名功能:后台可以根据别名进行推送
@@ -88,6 +131,36 @@ typedef enum {
 + (BOOL)setTags:(NSArray *)tags;
 
 /**
+ *  设置关闭推送模式（默认值：NO）
+ *
+ *  @param isValue 消息推送开发，YES.关闭消息推送 NO.开启消息推送
+ *
+ *  SDK-1.2.1
+ *
+ */
++ (void)setPushModeForOff:(BOOL)isValue;
+
+/**
+ *  同步角标值到个推服务器
+ *  该方法只是同步角标值到个推服务器，本地仍须调用setApplicationIconBadgeNumber函数
+ *
+ *  SDK-1.4.0
+ *
+ *  @param value 角标数值
+ */
++ (void)setBadge:(NSUInteger)value;
+
+/**
+ *  复位角标，等同于"setBadge:0"
+ *
+ *  SDK-1.4.0
+ *
+ */
++ (void)resetBadge;
+
+#pragma mark -
+
+/**
  *  SDK发送上行消息结果
  *
  *  @param body  需要发送的消息数据
@@ -110,70 +183,18 @@ typedef enum {
 + (BOOL)sendFeedbackMessage:(NSInteger)actionId taskId:(NSString *)taskId msgId:(NSString *)msgId;
 
 /**
- *  是否允许SDK 后台运行
- *
- *  @param isEnable 支持当APP进入后台后，个推是否运行,YES.允许
- */
-+ (void)runBackgroundEnable:(BOOL)isEnable;
-
-/**
- *  恢复SDK运行,IOS7 以后支持Background Fetch方式，后台定期更新数据,该接口需要在Fetch起来后被调用，保证SDK 数据获取。
- */
-+ (void)resume;
-
-/**
- *  地理围栏功能，设置地理围栏是否运行
- *
- *  @param isEnable 设置地理围栏功能是否运行
- *  @param isVerify 设置是否SDK主动弹出用户定位请求
- */
-+ (void)lbsLocationEnable:(BOOL)isEnable andUserVerify:(BOOL)isVerify;
-
-/**
- *  获取SDK版本号
- *
- *  @return 版本值
- */
-+ (NSString *)version;
-
-/**
- *  获取SDK的Cid
- *
- *  @return Cid值
- */
-+ (NSString *)clientId;
-
-/**
- *  获取SDK运行状态
- *
- *  @return 运行状态
- */
-+ (SdkStatus)status;
-
-/**
- *  设置处理显示的AlertView是否随屏幕旋转
- *
- *  @param orientations 支持的屏幕方向列表，具体值请参照UIInterfaceOrientation（From iOS SDK）
- */
-+ (void)setAllowedRotateUiOrientations:(NSArray *)orientations;
-
-/**
  *  清空下拉通知栏全部通知,并将角标置“0”，不显示角标
  */
 + (void)clearAllNotificationForNotificationBar;
 
 /**
- *  同步角标值到个推服务器
- *  该方法只是同步角标值到个推服务器，本地仍须调用setApplicationIconBadgeNumber函数
+ *  根据payloadId取回Payload数据（已弃用）
  *
- *  @param value 角标数值
+ *  @param payloadId 个推SDK获取到透传消息时返回的payloadId
+ *
+ *  @return 下发的消息数据
  */
-+ (void)setBadge:(NSUInteger)value;
-
-/**
- * 复位角标，等同于"setBadge:0"
- */
-+ (void)resetBadge;
++ (NSData *)retrivePayloadById:(NSString *)payloadId __deprecated;
 
 @end
 
@@ -218,8 +239,9 @@ typedef enum {
  *  SDK通知发送上行消息结果，收到sendMessage消息回调
  *
  *  @param messageId “sendMessage:error:”返回的id
- *  @param result    成功返回0
- *  说明: 当调用sendMessage:error:接口时，消息推送到个推服务器，服务器通过该接口通知sdk到达结果，result 为0 说明消息发送成功
+ *  @param result    成功返回1, 失败返回0
+ *  说明: 当调用sendMessage:error:接口时，消息推送到个推服务器，服务器通过该接口通知sdk到达结果，result为 1 说明消息发送成功
+ *  注意: 需第三方服务器接入个推,SendMessage 到达第三方服务器后返回 1
  */
 - (void)GeTuiSdkDidSendMessage:(NSString *)messageId result:(int)result;
 
