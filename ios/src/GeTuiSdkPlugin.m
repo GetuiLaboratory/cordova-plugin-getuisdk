@@ -99,7 +99,7 @@
     NSString *taskId = [command argumentAtIndex:1];
     NSString *msgId = [command argumentAtIndex:2];
 
-    BOOL result = [GeTuiSdk sendFeedbackMessage:actionId.intValue taskId:taskId msgId:msgId];
+    BOOL result = [GeTuiSdk sendFeedbackMessage:actionId.intValue andTaskId:taskId andMsgId:msgId];
 
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
