@@ -76,10 +76,12 @@ function onRegisterClient(clientId) {
 
 //透传数据返回
 function onReceivePayload(payloadId, taskId, msgId, offLine, appId) {
-	var retrievePayloadByIdCallback = function(playload) {
-        	//TODO playload = 透传数据
-	};
-	GeTuiSdk.retrievePayloadById(retrievePayloadByIdCallback, payloadId);
+     //TODO playload = 透传数据
+	 //TODO taskId = 推送消息的任务id
+	 //TODO msgId = 推送消息的messageid
+	 //TODO offLine = 是否是离线消息，YES.是离线消息
+	 //TODO appId = 应用的appId
+
 };
 
 //发送上行消息返回
