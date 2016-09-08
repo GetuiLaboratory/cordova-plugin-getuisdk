@@ -30,21 +30,31 @@ var GeTuiSdk = {
 		exec(null, null, 'GeTuiSdk', 'setPushModeOn', []);
 	},
 
-	bindAlias: function(alias) {
-		argscheck.checkArgs('s', 'GeTuiSdk.bindAlias', arguments);
-		exec(null, null, 'GeTuiSdk', 'bindAlias', [alias]);
+	bindAlias: function(alias, sequenceNum) {
+		argscheck.checkArgs('ss', 'GeTuiSdk.bindAlias', arguments);
+		exec(null, null, 'GeTuiSdk', 'bindAlias', [alias, sequenceNum]);
 	},
 
-	unbindAlias: function(alias) {
-		argscheck.checkArgs('s', 'GeTuiSdk.unbindAlias', arguments);
-		exec(null, null, 'GeTuiSdk', 'unbindAlias', [alias]);
+	unbindAlias: function(alias, sequenceNum) {
+		argscheck.checkArgs('ss', 'GeTuiSdk.unbindAlias', arguments);
+		exec(null, null, 'GeTuiSdk', 'unbindAlias', [alias, sequenceNum]);
 	},
 
 	setTags: function(callback, tags) {
 		argscheck.checkArgs('fa', 'GeTuiSdk.setTags', arguments);
 		exec(callback, null, 'GeTuiSdk', 'setTags', [tags]);
 	},
-
+               
+   setChannelId: function(channelId) {
+       argscheck.checkArgs('s', 'GeTuiSdk.setChannelId', arguments);
+       exec(null, null, 'GeTuiSdk', 'setChannelId', [channelId]);
+   },
+               
+   handleRemoteNotification: function(userInfo) {
+       argscheck.checkArgs('o', 'GeTuiSdk.handleRemoteNotification', arguments);
+       exec(null, null, 'GeTuiSdk', 'handleRemoteNotification', [userInfo]);
+   },
+               
 	sendMessage: function(successCallback, errorCallback, message) {
 		argscheck.checkArgs('ffs', 'GeTuiSdk.sendMessage', arguments);
 		exec(successCallback, errorCallback, 'GeTuiSdk', 'sendMessage', [message]);
@@ -91,11 +101,6 @@ var GeTuiSdk = {
 		exec(callback, null, 'GeTuiSdk', 'clientId', []);
 	},
 
-	setAllowedRotateUiOrientations: function(orientations) {
-		argscheck.checkArgs('a', 'GeTuiSdk.setAllowedRotateUiOrientations', arguments);
-		exec(null, null, 'GeTuiSdk', 'setAllowedRotateUiOrientations', [orientations]);
-	},
-
 	clearAllNotificationForNotificationBar: function() {
 		exec(null, null, 'GeTuiSdk', 'clearAllNotificationForNotificationBar', []);
 	},
@@ -128,8 +133,11 @@ var GeTuiSdk = {
     setGeTuiSdkDidSetPushModeCallback: function(callback) {
         argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidSetPushModeCallback', arguments);
         exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidSetPushModeCallback', []);
-    }
+    },
 
+   setGeTuiSdkDidAliasActionCallback:function(callback) {
+       argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidAliasActionCallback', arguments);
+       exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidAliasActionCallback', []);
+   }
 };
-
 module.exports = GeTuiSdk;
