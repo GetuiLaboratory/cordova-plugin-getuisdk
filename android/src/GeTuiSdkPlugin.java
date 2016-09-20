@@ -174,7 +174,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
     	    t.setName(tags[i]);
     	    tagParam[i] = t;
     	}
-    	return PushManager.getInstance().setTag(con, tagParam);
+    	return PushManager.getInstance().setTag(con, tagParam, "sn"); //setTag函数的参数发生变化  2.9.0.0
     }
 
     //接口 PushManager 中的 setSilentTime，设置静默时间，静默期间SDK将不再联网。
