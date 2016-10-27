@@ -13,7 +13,11 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.json.simple.JSONObject;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.JSONObject; //改用原生API的JSON  2.9.3.0
+// import org.json.simple.JSONObject;
 
 import android.os.AsyncTask;
 
@@ -29,7 +33,8 @@ public class GetuiSdkHttpPost {
 
             @Override
             protected Void doInBackground(Void... params) {
-                String param = JSONObject.toJSONString(map);
+                // String param = JSONObject.toJSONString(map);
+                String param = createJSONString(map); //用原生API代替第三方的JSON
 
                 if (param != null) {
                     URL url = null;
@@ -148,5 +153,26 @@ public class GetuiSdkHttpPost {
 
         return new String(str); // 换后的结果转换为字符串
     }
+
+
+    // 采用原生API，将Map装入JSON字符串  0824
+    public static String createJSONString(Map map){
+        JSONObject json = new JSONObject();
+        try {
+            if (map == null) {
+                return null;
+            } else { //Map的值放入JSON
+                Iterator iterator = map.entrySet().iterator();
+                while (iterator.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iterator.next();
+                    json.put( String.valueOf(entry.getKey()), entry.getValue());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return json.toString();
+    }
+
 
 }
