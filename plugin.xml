@@ -45,7 +45,7 @@
         <header-file src="ios/src/GeTuiSdkPlugin.h" target-dir="src"/>
         <source-file src="ios/src/GeTuiSdkPlugin.m" target-dir="src" />
         <header-file src="ios/GtSdkLib/GeTuiSdk.h" target-dir="GtSdkLib" />
-        <source-file src="ios/GtSdkLib/libGeTuiSdk-1.4.3.a" framework="true"/>
+        <source-file src="ios/GtSdkLib/libGeTuiSdk-1.5.0.a" framework="true"/>
 
         <framework src="libsqlite3.tbd" />
         <framework src="libz.tbd" />
