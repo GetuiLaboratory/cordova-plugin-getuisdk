@@ -85,8 +85,8 @@ public class GeTuiSdkPushReceiver extends BroadcastReceiver {
                 boolean result = PushManager.getInstance().sendFeedbackMessage(context, taskid, messageid, 90001);
                 if (payload != null) {
                     String data = new String(payload);
-                    	bean = new GeTuiSdkPushBean();
-                    	bean.setPayload(data);
+                        bean = new GeTuiSdkPushBean();
+                        bean.setPayload(data);
                         dealWithEvents(GetuiSdkPushCallBack.CALLBACK_PAYLOAD, bean);
                 }
                 break;
@@ -95,21 +95,21 @@ public class GeTuiSdkPushReceiver extends BroadcastReceiver {
                 // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
                 String cid = bundle.getString("clientid");
                     bean = new GeTuiSdkPushBean();
-                	bean.setCid(cid);
+                    bean.setCid(cid);
                     dealWithEvents(GetuiSdkPushCallBack.CALLBACK_CID, bean);
                 break;
             case PushConsts.GET_SDKONLINESTATE:
     			// 获取SDK在线状态
     			boolean isOnline = bundle.getBoolean("onlineState");
-                	bean = new GeTuiSdkPushBean();
-                	bean.setOnline(isOnline);
+                    bean = new GeTuiSdkPushBean();
+                    bean.setOnline(isOnline);
                     dealWithEvents(GetuiSdkPushCallBack.CALLBACK_ISONLINE, bean);
     			break;
     		case PushConsts.GET_SDKSERVICEPID:
     			// 获取SDK service 进程id
     			int pid = bundle.getInt("pid");
                 	bean = new GeTuiSdkPushBean();
-                	bean.setPid(pid);
+                    bean.setPid(pid);
                     dealWithEvents(GetuiSdkPushCallBack.CALLBACK_PID, bean);
     			break;
             case PushConsts.THIRDPART_FEEDBACK:
@@ -118,8 +118,6 @@ public class GeTuiSdkPushReceiver extends BroadcastReceiver {
                 break;
         }
     }
-
-
 
 
 }
