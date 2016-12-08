@@ -140,4 +140,4 @@ GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret);
 
 [plugman使用](http://cordova.apache.org/docs/en/latest/plugin_ref/plugman.html)  
 
-[个推官方文档](http://docs.getui.com/pages/viewpage.action?pageId=589866)
+[个推官方文档](http://docs.getui.com/)
