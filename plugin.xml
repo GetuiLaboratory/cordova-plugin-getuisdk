@@ -153,6 +153,16 @@
                     <action android:name="com.igexin.sdk.action.pushmanager" />
                 </intent-filter>
             </receiver>
+
+             <!-- 配置第三方Receiver -->
+            <receiver
+                android:name="com.igexin.getui.phonegap.GeTuiSdkPushReceiver"
+                android:exported="false" >
+                <intent-filter>
+                    <action android:name="com.igexin.sdk.action.$PUSH_APPID" />
+                </intent-filter>
+            </receiver>
+
             <activity
                 android:name="com.igexin.sdk.PushActivity"
                 android:excludeFromRecents="true"
