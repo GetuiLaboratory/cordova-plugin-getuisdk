@@ -29,7 +29,6 @@ public class GetuiSdkHttpPost {
 
     public static void httpPost(final Map<String, Object> map) {
 
-        // AsyncTask，后台执行网络请求
         new AsyncTask<Void, Integer, Void>() {
 
             @Override
@@ -95,7 +94,7 @@ public class GetuiSdkHttpPost {
     }
 
     /**
-     * 生成Sign方法     个推推送的Sign
+     * 生成Sign方法
      */
     public static String makeSign(String masterSecret, Map<String, Object> params) throws IllegalArgumentException {
         if (masterSecret == null || params == null) {
