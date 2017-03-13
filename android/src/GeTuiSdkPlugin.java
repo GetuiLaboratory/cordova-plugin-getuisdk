@@ -28,12 +28,12 @@ import android.os.Message;
 import android.text.TextUtils;
 
 @SuppressLint("HandlerLeak")
-public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBack{
+public class GeTuiSdkPlugin extends CordovaPlugin {
 
 	private Context con = null;
 	private CordovaInterface cordova;
 	public static CordovaWebView cordovaWebView;
-	
+
 	private String appkey = "";
     private String appsecret = "";
     private String appid = "";
@@ -141,16 +141,21 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
     	return PushManager.getInstance();
     }
 
-    //用于sdk初始化
+    //用于sdk初始化, 改用静态广播
     public void initialize_getui(String appid) {
-    	GeTuiSdkPushReceiver geTuiSdkPushReceiver = new GeTuiSdkPushReceiver();
-    	geTuiSdkPushReceiver.setGeTuiSdkCallBack(this);
-    	IntentFilter filter = new IntentFilter();
-    	filter.addAction("com.igexin.sdk.action." + appid);
-    	con.registerReceiver(geTuiSdkPushReceiver, filter);
+//    	GeTuiSdkPushReceiver geTuiSdkPushReceiver = new GeTuiSdkPushReceiver();
+//    	geTuiSdkPushReceiver.setGeTuiSdkCallBack(this);
+//    	IntentFilter filter = new IntentFilter();
+//    	filter.addAction("com.igexin.sdk.action." + appid);
+//    	con.registerReceiver(geTuiSdkPushReceiver, filter);
 
-    	PushManager.getInstance().initialize(con);
+		try{
+			PushManager.getInstance().initialize(con);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
     }
+
 
     //获取当前 SDK 版本号
     public String getVersion() {
@@ -174,7 +179,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
     	    t.setName(tags[i]);
     	    tagParam[i] = t;
     	}
-    	return PushManager.getInstance().setTag(con, tagParam);
+    	return PushManager.getInstance().setTag(con, tagParam, "sn"); //setTag函数的参数发生变化  2.9.3.0
     }
 
     //接口 PushManager 中的 setSilentTime，设置静默时间，静默期间SDK将不再联网。
@@ -222,46 +227,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
     	return PushManager.getInstance().unBindAlias(con, alias, isSelf);
     }
 
-    Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			int type = msg.what;
-			if(msg.obj == null) {
-				return;
-			}
-			GeTuiSdkPushBean bean = (GeTuiSdkPushBean) msg.obj;
-			if(bean == null || cordovaWebView == null) {
-				return;
-			}
-			switch (type) {
-			case GetuiSdkPushCallBack.CALLBACK_CID:
-				String cid = "javascript:GeTuiSdkPlugin.callback_data('cid','" + bean.getCid() +"')";
-				cordovaWebView.loadUrl(cid);
-				break;
-			case GetuiSdkPushCallBack.CALLBACK_PAYLOAD:
-				String payload = "javascript:GeTuiSdkPlugin.callback_data('payload','"+ bean.getPayload() +"')";
-				cordovaWebView.loadUrl(payload);
-				break;
-			case GetuiSdkPushCallBack.CALLBACK_PID:
-				String pid = "javascript:GeTuiSdkPlugin.callback_data('pid','"+ bean.getPid() +"')";
-				cordovaWebView.loadUrl(pid);
-				break;
-			case GetuiSdkPushCallBack.CALLBACK_ISONLINE:
-				String online = "javascript:GeTuiSdkPlugin.callback_data('online','"+ bean.isOnline() +"')";
-				cordovaWebView.loadUrl(online);
-				break;
-			default:
-				break;
-			}
-		}
-    };
 
-	@Override
-	public void receiverCallBack(int type, GeTuiSdkPushBean bean) {
-		if (bean != null && handler != null) {
-			handler.sendMessage(handler.obtainMessage(type, bean));
-		}
-	}
 
 	public void transmission(String cid, String mastersecret) {
 		// !!!!!!注意：以下为个推服务端API1.0接口，仅供测试。不推荐在现网系统使用1.0版服务端接口，请参考最新的个推服务端API接口文档，使用最新的2.0版接口
@@ -319,4 +285,6 @@ public class GeTuiSdkPlugin extends CordovaPlugin implements GetuiSdkPushCallBac
 
           GetuiSdkHttpPost.httpPost(param);
 	}
+
+
 }
