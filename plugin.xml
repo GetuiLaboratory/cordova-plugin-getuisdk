@@ -47,16 +47,16 @@
         <header-file src="ios/GtSdkLib/GeTuiSdk.h" target-dir="GtSdkLib" />
         <source-file src="ios/GtSdkLib/libGeTuiSdk-1.6.2.0.a" framework="true"/>
         
-        <framework src="libsqlite3.tbd" />
-        <framework src="libz.tbd" />
-        <framework src="libc++.tbd" />
-        <framework src="CoreLocation.framework" />
-        <framework src="CFNetwork.framework" />
-        <framework src="CoreTelephony.framework" />
-        <framework src="Security.framework" />
-        <framework src="SystemConfiguration.framework" />
-        <framework src="AVFoundation.framework" />
-        <framework src="UserNotifications.framework" />
+        <framework src="libsqlite3.tbd" weak="true"/>
+        <framework src="libz.tbd" weak="true"/>
+        <framework src="libc++.tbd" weak="true"/>
+        <framework src="CoreLocation.framework" weak="true"/>
+        <framework src="CFNetwork.framework" weak="true"/>
+        <framework src="CoreTelephony.framework" weak="true"/>
+        <framework src="Security.framework" weak="true"/>
+        <framework src="SystemConfiguration.framework" weak="true"/>
+        <framework src="AVFoundation.framework" weak="true"/>
+        <framework src="UserNotifications.framework" weak="true"/>
     </platform>
     
     <platform name="android">
