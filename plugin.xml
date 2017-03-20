@@ -129,8 +129,8 @@
             </service>
             
             <service
-            android:name="com.igexin.sdk.PushServiceUser"
-            android:exported="true"
+           	android:name="com.igexin.sdk.PushServiceUser"
+           	android:exported="true"
             android:label="NotificationCenterUser" />
             <receiver android:name="com.igexin.sdk.PushReceiver" >
                 <intent-filter>
@@ -152,15 +152,16 @@
                     <action android:name="com.igexin.sdk.action.pushmanager" />
                 </intent-filter>
             </receiver>
+
+			<service
+				android:name="com.igexin.getui.phonegap.CordovaPushService"
+				android:exported="true"
+				android:label="PushService"
+				android:process=":pushservice">
+			</service>
+
+            <service android:name="com.igexin.getui.phonegap.CordovaIntentService"/>
             
-            <!-- 配置第三方Receiver -->
-            <receiver
-                android:name="com.igexin.getui.phonegap.GeTuiSdkPushReceiver"
-                android:exported="false" >
-                <intent-filter>
-                    <action android:name="com.igexin.sdk.action.$PUSH_APPID" />
-                </intent-filter>
-            </receiver>
             
             <activity
             android:name="com.igexin.sdk.PushActivity"
@@ -169,6 +170,7 @@
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
             <activity
             android:name="com.igexin.sdk.GActivity"
             android:excludeFromRecents="true"
@@ -197,7 +199,7 @@
         </config-file>
         
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
-        <source-file src="android/GtSdkLib/GetuiSDK2.9.3.0.jar" target-dir="libs"/>
+        <source-file src="android/GtSdkLib/GetuiSDK2.10.2.0.jar" target-dir="libs"/>
         
         <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext2.so" target-dir="libs/arm64-v8a" />
         <source-file src="android/GtSdkLib/armeabi/libgetuiext2.so" target-dir="libs/armeabi" />
@@ -212,12 +214,14 @@
         <resource-file src="android/res/drawable-hdpi/push.png" target="res/drawable-hdpi/push.png" />
         <resource-file src="android/res/drawable-ldpi/push.png" target="res/drawable-ldpi/push.png" />
         <resource-file src="android/res/drawable-mdpi/push.png" target="res/drawable-mdpi/push.png" />
-        
-        <source-file src="android/src/GetuiSdkHttpPost.java" target-dir="src/com/igexin/getui/phonegap" />
+
         <source-file src="android/src/GeTuiSdkPlugin.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/GeTuiSdkPushBean.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/GetuiSdkPushCallBack.java" target-dir="src/com/igexin/getui/phonegap" />
-        <source-file src="android/src/GeTuiSdkPushReceiver.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/CordovaPushService.java" target-dir="src/com/igexin/getui/phonegap" />
+        <source-file src="android/src/CordovaIntentService.java" target-dir="src/com/igexin/getui/phonegap" />
+
+
         
     </platform>
     

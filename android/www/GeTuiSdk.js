@@ -108,17 +108,8 @@ var GeTuiSdkPlugin = {
 		exec(callback, null, 'GeTuiSdkPlugin', 'unSelfBindAlias', [ alias ]);
 	},
 	
-	//通知测试
-	notifaction:function(cid, mast) {
-		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.notifaction', arguments);
-		exec(null, null, 'GeTuiSdkPlugin', 'notifaction', [cid, mast]);
-	},
 	
-	//透传数据测试
-	transmission:function(cid, mast) {
-		argscheck.checkArgs('SS', 'GeTuiSdkPlugin.transmission', arguments);
-		exec(null, null, 'GeTuiSdkPlugin', 'transmission', [cid, mast]);
-	}
+
 };
 
 module.exports = GeTuiSdkPlugin;
