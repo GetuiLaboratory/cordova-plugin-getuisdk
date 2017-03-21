@@ -33,6 +33,11 @@ public class CordovaIntentService extends GTIntentService {
     private CordovaWebView cordovaWebViewReceiver = null;
     private GeTuiSdkPushBean bean;
 
+    private final int CALLBACK_PID = 1;
+    private final int CALLBACK_PAYLOAD = 2;
+    private final int CALLBACK_CID = 3;
+    private final int CALLBACK_ISONLINE = 4;
+
     
     // 为了观察透传数据变化.
     private static int cnt;
@@ -64,19 +69,19 @@ public class CordovaIntentService extends GTIntentService {
             }
 
             switch (type) {
-                case GetuiSdkPushCallBack.CALLBACK_CID:
+                case CALLBACK_CID:
                     String cid = "javascript:GeTuiSdkPlugin.callback_data('cid','" + bean.getCid() +"')";
                     cordovaWebViewReceiver.loadUrl(cid);
                     break;
-                case GetuiSdkPushCallBack.CALLBACK_PAYLOAD:
+                case CALLBACK_PAYLOAD:
                     String payload = "javascript:GeTuiSdkPlugin.callback_data('payload','"+ bean.getPayload() +"')";
                     cordovaWebViewReceiver.loadUrl(payload);
                     break;
-                case GetuiSdkPushCallBack.CALLBACK_PID:
+                case CALLBACK_PID:
                     String pid = "javascript:GeTuiSdkPlugin.callback_data('pid','"+ bean.getPid() +"')";
                     cordovaWebViewReceiver.loadUrl(pid);
                     break;
-                case GetuiSdkPushCallBack.CALLBACK_ISONLINE:
+                case CALLBACK_ISONLINE:
                     String online = "javascript:GeTuiSdkPlugin.callback_data('online','"+ bean.isOnline() +"')";
                     cordovaWebViewReceiver.loadUrl(online);
                     break;
@@ -94,7 +99,7 @@ public class CordovaIntentService extends GTIntentService {
         Log.d(TAG, "onReceiveServicePid -> " + pid);
         bean = new GeTuiSdkPushBean();
         bean.setPid(pid);
-        dealWithEvents(GetuiSdkPushCallBack.CALLBACK_PID, bean);
+        dealWithEvents(CALLBACK_PID, bean);
     }
 
 
@@ -114,7 +119,7 @@ public class CordovaIntentService extends GTIntentService {
             String data = new String(payload);
             bean = new GeTuiSdkPushBean();
             bean.setPayload(data);
-            dealWithEvents(GetuiSdkPushCallBack.CALLBACK_PAYLOAD, bean);
+            dealWithEvents(CALLBACK_PAYLOAD, bean);
         }
 
     }
@@ -128,7 +133,7 @@ public class CordovaIntentService extends GTIntentService {
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + clientid);
         bean = new GeTuiSdkPushBean();
         bean.setCid(clientid);
-        dealWithEvents(GetuiSdkPushCallBack.CALLBACK_CID, bean);
+        dealWithEvents(CALLBACK_CID, bean);
     }
 
 
@@ -138,7 +143,7 @@ public class CordovaIntentService extends GTIntentService {
         Log.d(TAG, "onReceiveOnlineState -> " + (online ? "online" : "offline"));
         bean = new GeTuiSdkPushBean();
         bean.setOnline(online);
-        dealWithEvents(GetuiSdkPushCallBack.CALLBACK_ISONLINE, bean);
+        dealWithEvents(CALLBACK_ISONLINE, bean);
     }
 
 
