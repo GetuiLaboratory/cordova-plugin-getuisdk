@@ -58,6 +58,8 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
         }
 	}
 
+
+	// JS与Java的调用
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		if ("initialize".equals(action)) {
@@ -65,7 +67,13 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
 				initialize_getui(appid);
 			}
 		} else if ("getVersion".equals(action)) {
-			getVersion();
+			String result = getVersion();
+			JSONArray ja = new JSONArray();
+			ja.put(result);		
+			if (callbackContext != null) {
+				callbackContext.success(ja);
+			}
+
 		} else if ("setTag".equals(action)) {
 			if (args != null) {
 				setTag(args.getString(0));
@@ -98,7 +106,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
 			String result = getClientId();
 			JSONArray ja = new JSONArray();
 			ja.put(result);
-			if (args != null) {
+			if (callbackContext != null) {
 				callbackContext.success(ja);
 			}
 		} else if ("bindAlias".equals(action)) {
@@ -122,24 +130,19 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
 				ja.put(result);
 				callbackContext.success(ja);
 			}
-		} else if ("transmission".equals(action)) {
-			if (args != null) {
-				transmission(args.getString(0), args.getString(1));
-			}
-		} else if ("notifaction".equals(action)) {
-			if (args != null) {
-				notifaction(args.getString(0), args.getString(1));
-			}
 		} else {
 			return false;
 		}
 		return true;
 	}
 
+
+
     //用于获取单例PushManager对象实例，可以进行推送控制、设置标签、设置别名、设置静默时间等，所有个推提供的接口均是通过该实例调用。
     public PushManager getInstance() {
     	return PushManager.getInstance();
     }
+
 
     //用于sdk初始化, 改用静态广播
     public void initialize_getui(String appid) {
@@ -150,17 +153,22 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
 //    	con.registerReceiver(geTuiSdkPushReceiver, filter);
 
 		try{
-			PushManager.getInstance().initialize(con);
+			// PushManager.getInstance().initialize(con); 旧模式
+			PushManager.getInstance().initialize(con, com.igexin.getui.phonegap.CordovaPushService.class);
+			PushManager.getInstance().registerPushIntentService(con, com.igexin.getui.phonegap.CordovaIntentService.class);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
     }
 
 
+
     //获取当前 SDK 版本号
     public String getVersion() {
     	return PushManager.getInstance().getVersion(con);
     }
+
+
 
     //为当前用户设置一组标签，后续推送可以指定标签名进行定向推送。
     public int setTag(String arrayTags) {
@@ -179,8 +187,9 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
     	    t.setName(tags[i]);
     	    tagParam[i] = t;
     	}
-    	return PushManager.getInstance().setTag(con, tagParam, "sn"); //setTag函数的参数发生变化  2.9.3.0
+    	return PushManager.getInstance().setTag(con, tagParam, "sn"); //setTag函数的参数发生变化  2.9.3.0 以后
     }
+    
 
     //接口 PushManager 中的 setSilentTime，设置静默时间，静默期间SDK将不再联网。
     public boolean setSilentTime(int beginHour,int duration) {
@@ -228,63 +237,6 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
     }
 
 
-
-	public void transmission(String cid, String mastersecret) {
-		// !!!!!!注意：以下为个推服务端API1.0接口，仅供测试。不推荐在现网系统使用1.0版服务端接口，请参考最新的个推服务端API接口文档，使用最新的2.0版接口
-		Map<String, Object> param = new HashMap<String, Object>();
-		 // pushmessage为接口名，注意全部小写
-        param.put("action", "pushmessage");
-        /*---以下代码用于设定接口相应参数---*/
-        param.put("appkey", appkey);
-        param.put("appid", appid);
-        //注：透传内容后面需用来验证接口调用是否成功，假定填写为hello girl~
-        param.put("data", "透传消息测试");
-        SimpleDateFormat  formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date curDate = new Date(System.currentTimeMillis());
-        param.put("time", formatter.format(curDate)); // 当前请求时间，可选
-        param.put("clientid", cid); // 您获取的ClientID
-        param.put("expire", 3600); // 消息超时时间，单位为秒，可选
-
-        // 生成Sign值，用于鉴权
-        param.put("sign", GetuiSdkHttpPost.makeSign(mastersecret, param));
-
-        GetuiSdkHttpPost.httpPost(param);
-	}
-	
-	public void notifaction(String cid, String mastersecret) {
-		// !!!!!!注意：以下为个推服务端API1.0接口，仅供测试。不推荐在现网系统使用1.0版服务端接口，请参考最新的个推服务端API接口文档，使用最新的2.0版接口
-		  Map<String, Object> param = new HashMap<String, Object>();
-          param.put("action", "pushSpecifyMessage"); // pushSpecifyMessage为接口名，注意大小写
-          /*---以下代码用于设定接口相应参数---*/
-          param.put("appkey", appkey);
-          param.put("type", 2); // 推送类型： 2为消息
-          param.put("pushTitle", "通知栏测试"); // pushTitle请填写您的应用名称
-
-          // 推送消息类型，有TransmissionMsg、LinkMsg、NotifyMsg三种，此处以LinkMsg举例
-          param.put("pushType", "LinkMsg");
-
-          param.put("offline", true); // 是否进入离线消息
-
-          param.put("offlineTime", 72); // 消息离线保留时间
-          param.put("priority", 1); // 推送任务优先级
-
-          List<String> cidList = new ArrayList<String>();
-          cidList.add(cid); // 您获取的ClientID
-          param.put("tokenMD5List", cidList);
-
-          // 生成Sign值，用于鉴权，需要MasterSecret，请务必填写
-          param.put("sign", GetuiSdkHttpPost.makeSign(mastersecret, param));
-
-          // LinkMsg消息实体
-          Map<String, Object> linkMsg = new HashMap<String, Object>();
-          linkMsg.put("linkMsgIcon", "push.png"); // 消息在通知栏的图标
-          linkMsg.put("linkMsgTitle", "通知栏测试"); // 推送消息的标题
-          linkMsg.put("linkMsgContent", "您收到一条测试消息，点击访问www.igetui.com！"); // 推送消息的内容
-          linkMsg.put("linkMsgUrl", "http://www.igetui.com/"); // 点击通知跳转的目标网页
-          param.put("msg", linkMsg);
-
-          GetuiSdkHttpPost.httpPost(param);
-	}
 
 
 }

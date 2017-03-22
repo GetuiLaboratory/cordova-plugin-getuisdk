@@ -35,11 +35,10 @@ function callback(type, data) {
 	} else if(type == 'pid') {
 		//TODO data = 进程pid
 	} else if(type == 'payload') {
-   	//TODO data=透传数据
+   		//TODO data=透传数据
 	} else if(type == 'online') {
 		if(data == 'true') {
 			//TODO 已上线
-		$('#clientid').text(clientid);
 		} else {
 			//TODO 已离线
 		}
@@ -51,6 +50,33 @@ function callback(type, data) {
  GeTuiSdkPlugin.callback_init(callback);   
  GeTuiSdkPlugin.initialize();
 ```
+
+##### 回调示例
+```
+
+function callback(data){
+	alert('value =  ' + data);
+}
+
+function getCID(back){
+	GeTuiSdkPlugin.getClientId(back);
+}
+
+function getVersion(back){
+	GeTuiSdkPlugin.getVersion(back);
+}
+
+```
+
+
+##### 补充说明
+1，如果用户工程中已有 android-support-v4.jar 文件包，则需要将 plugin.xml 中的 ```<source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/> ``` 该行去掉；<br/>
+
+
+
+
+
+
 
 ## iOS平台支持
 * 添加ios平台
