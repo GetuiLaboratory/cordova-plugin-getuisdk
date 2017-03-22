@@ -117,6 +117,7 @@
             <meta-data
             android:name="PUSH_APPSECRET"
             android:value="$PUSH_APPSECRET"/>
+            
             <!-- 配置SDK核心服务 -->
             <service
                 android:name="com.igexin.sdk.PushService"

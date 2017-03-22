@@ -59,7 +59,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
 	}
 
 
-	// JS调用Java
+	// JS与Java的调用
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		if ("initialize".equals(action)) {

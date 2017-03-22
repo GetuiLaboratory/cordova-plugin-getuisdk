@@ -39,9 +39,6 @@ public class CordovaIntentService extends GTIntentService {
     private final int CALLBACK_ISONLINE = 4;
 
     
-    // 为了观察透传数据变化.
-    private static int cnt;
-
     public CordovaIntentService() { }
 
 
