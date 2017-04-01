@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-getuisdk"
-    version="1.0.0">
+    version="1.0.2">
     <name>GeTuiSdk</name>
     <description>getui sdk Plugin</description>
     <license>Apache 2.0</license>
