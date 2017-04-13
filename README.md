@@ -14,7 +14,7 @@ cordova create 目录名 应用包名 工程名
 ```
 * 使用 cordova 命令方式添加插件
 
-	其中 PUSH_APPID、PUSH_APPKEY、PUSH_APPSECRET 为 Android 所需参数，iOS 需要另行配置，但也必须设值，否则添加失败。
+	其中 PUSH_APPID、PUSH_APPKEY、PUSH_APPSECRET 为 Android 所需参数。如果只用到 iOS，则直接拷贝下列命令运行，否则添加失败。
 
 ````
 cordova plugin add cordova-plugin-getuisdk --variable PUSH_APPID=你的appid --variable PUSH_APPKEY=你的appkey --variable PUSH_APPSECRET=你的appsecret
@@ -101,10 +101,10 @@ plugman install --platform ios --project ios平台目录 --plugin https://github
 ```
 cordova build
 ```
-* iOS 需要添加依赖插件 phonegap-plugin-push
+* iOS 需要添加依赖插件 phonegap-plugin-push，直接复制下面命令，不需要考虑 SENDER_ID 的内容
 
 ````
-cordova plugin add phonegap-plugin-push
+cordova plugin add phonegap-plugin-push --variable SENDER_ID="My Sender ID"
 ````
 
 * JS文件中进行个推初始化

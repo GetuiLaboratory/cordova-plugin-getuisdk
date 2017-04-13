@@ -7,9 +7,9 @@
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,33 +20,33 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-getuisdk"
-    version="1.0.2">
+    version="1.0.4">
     <name>GeTuiSdk</name>
     <description>getui sdk Plugin</description>
     <license>Apache 2.0</license>
     <keywords>getui,push</keywords>
-    
+
     <engines>
         <engine name="cordova-ios" version=">=3.0.0" />
         <engine name="cordova-android" version=">=3.0.0" />
     </engines>
-    
+
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="GeTuiSdk" >
                 <param name="ios-package" value="GeTuiSdkPlugin"/>
             </feature>
         </config-file>
-        
+
         <js-module src="ios/www/GeTuiSdk.js" name="GeTuiSdk">
             <clobbers target="GeTuiSdk" />
         </js-module>
-        
+
         <header-file src="ios/src/GeTuiSdkPlugin.h" target-dir="src"/>
         <source-file src="ios/src/GeTuiSdkPlugin.m" target-dir="src" />
         <header-file src="ios/GtSdkLib/GeTuiSdk.h" target-dir="GtSdkLib" />
         <source-file src="ios/GtSdkLib/libGeTuiSdk-1.6.2.0.a" framework="true"/>
-        
+
         <framework src="libsqlite3.tbd" weak="true"/>
         <framework src="libz.tbd" weak="true"/>
         <framework src="libc++.tbd" weak="true"/>
@@ -58,24 +58,24 @@
         <framework src="AVFoundation.framework" weak="true"/>
         <framework src="UserNotifications.framework" weak="true"/>
     </platform>
-    
+
     <platform name="android">
         <preference name="PUSH_APPID"/>
         <preference name="PUSH_APPKEY"/>
         <preference name="PUSH_APPSECRET"/>
-        
+
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="GeTuiSdkPlugin" >
                 <param name="android-package" value="com.igexin.getui.phonegap.GeTuiSdkPlugin"/>
                 <param name="onload" value="true" />
             </feature>
         </config-file>
-        
+
         <js-module src="android/www/GeTuiSdk.js" name="GeTuiSdkPlugin">
             <clobbers target="GeTuiSdkPlugin" />
         </js-module>
-        
-        
+
+
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <!-- 个推SDK权限配置开始 -->
             <uses-permission android:name="android.permission.INTERNET" />
@@ -104,7 +104,7 @@
             </permission><!--替换为第三方应用的包名-->
             <!-- 个推SDK权限配置结束 -->
         </config-file>
-        
+
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <!--个推SDK配置开始-->
             <!-- 配置的第三方参数属性 -->
@@ -117,7 +117,7 @@
             <meta-data
             android:name="PUSH_APPSECRET"
             android:value="$PUSH_APPSECRET"/>
-            
+
             <!-- 配置SDK核心服务 -->
             <service
                 android:name="com.igexin.sdk.PushService"
@@ -128,7 +128,7 @@
                     <action android:name="com.igexin.sdk.action.service.message"/>
                 </intent-filter>
             </service>
-            
+
             <service
            	android:name="com.igexin.sdk.PushServiceUser"
            	android:exported="true"
@@ -145,7 +145,7 @@
                     <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
                 </intent-filter>
             </receiver>
-            
+
             <receiver
                 android:name="com.igexin.sdk.PushManagerReceiver"
                 android:exported="false" >
@@ -162,8 +162,8 @@
 			</service>
 
             <service android:name="com.igexin.getui.phonegap.CordovaIntentService"/>
-            
-            
+
+
             <activity
             android:name="com.igexin.sdk.PushActivity"
             android:excludeFromRecents="true"
@@ -179,29 +179,29 @@
             android:process=":pushservice"
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-            
+
             <service
             android:name="com.igexin.download.DownloadService"
             android:process=":pushservice" />
-            
+
             <receiver android:name="com.igexin.download.DownloadReceiver" >
                 <intent-filter>
                     <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 </intent-filter>
             </receiver>
-            
+
             <provider
             android:name="com.igexin.download.DownloadProvider"
             android:exported="true"
             android:authorities="downloads.$PACKAGE_NAME"
             android:process=":pushservice" />
-            
+
             <!-- 个推SDK配置结束 -->
         </config-file>
-        
+
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
         <source-file src="android/GtSdkLib/GetuiSDK2.10.2.0.jar" target-dir="libs"/>
-        
+
         <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext2.so" target-dir="libs/arm64-v8a" />
         <source-file src="android/GtSdkLib/armeabi/libgetuiext2.so" target-dir="libs/armeabi" />
         <source-file src="android/GtSdkLib/armeabi-v7a/libgetuiext2.so" target-dir="libs/armeabi-v7a" />
@@ -209,9 +209,9 @@
         <source-file src="android/GtSdkLib/mips64/libgetuiext2.so" target-dir="libs/mips64" />
         <source-file src="android/GtSdkLib/x86/libgetuiext2.so" target-dir="libs/x86" />
         <source-file src="android/GtSdkLib/x86_64/libgetuiext2.so" target-dir="libs/x86_64" />
-        
+
         <resource-file src="android/res/layout/getui_notification.xml" target="res/layout/getui_notification.xml" />
-        
+
         <resource-file src="android/res/drawable-hdpi/push.png" target="res/drawable-hdpi/push.png" />
         <resource-file src="android/res/drawable-ldpi/push.png" target="res/drawable-ldpi/push.png" />
         <resource-file src="android/res/drawable-mdpi/push.png" target="res/drawable-mdpi/push.png" />
@@ -220,11 +220,11 @@
         <source-file src="android/src/GeTuiSdkPushBean.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/CordovaPushService.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/CordovaIntentService.java" target-dir="src/com/igexin/getui/phonegap" />
-        
+
     </platform>
-    
+
     <info>
         Getui sdk plugin installation succeeded.
     </info>
-    
+
 </plugin>
