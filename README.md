@@ -1,6 +1,6 @@
 # cordova-plugin-getuisdk
 ##安装cordova环境
-* 安装cordova 
+* 安装cordova
 ```
 npm install -g cordova
 ```
@@ -18,9 +18,9 @@ cordova create 目录名 应用包名 工程名
 cordova platform add android
 ```
 * 添加个推推送
-```	
+```
 plugman install --platform android --project android平台目录 --plugin https://github.com/GetuiLaboratory/cordova-plugin-getuisdk --plugins_dir 你的插件目录 --variable PUSH_APPID=你的appid --variable PUSH_APPKEY=你的appkey --variable PUSH_APPSECRET=你的appsecret
-```	
+```
 * 安装之后需要重新构建工程
 ```
 cordova build
@@ -84,15 +84,15 @@ function getVersion(back){
 cordova platform add ios
 ```
 * 添加个推推送
-```	
+```
 plugman install --platform ios --project ios平台目录 --plugin https://github.com/GetuiLaboratory/cordova-plugin-getuisdk --plugins_dir 你的插件目录
-```	
+```
 * 安装之后需要重新构建工程
 ```
 cordova build
 ```
 * JS文件中进行个推初始化
-	
+
 ##### 回调函数
 ```
 //clinetid返回
@@ -160,6 +160,37 @@ GeTuiSdk.setGeTuiSDkDidNotifySdkStateCallback(onNotifySdkState);
 GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(onSetPushMode);
 //个推平台申请的参数KAppId, KAppKey, KAppSecret
 GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret);
+
+// 使用 phonegap-plugin-push 获取 deviceToken 并注册到个推 SDK
+var options = {
+    ios: {
+        alert: "true",
+        badge: "true",
+        sound: "true"
+    }
+};
+
+var push = PushNotification.init(options);
+
+var onRegistration = function(data) {
+    console.log(data.registrationId+' deviceToken');
+		// 获取 deviceToken 成功，注册 deviceToken 到个推 SDK
+    GeTuiSdk.registerDeviceToken(data.registrationId);
+};
+push.on('registration', onRegistration);
+
+var onNotification = function(data) {
+    var date = new Date();
+    var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    app.log('[APN] ' + dateStr + 'title:' + data.title + ' message:' + data.message);
+};
+push.on('notification', onNotification);
+
+var onError = function(e) {
+    GeTuiSdk.registerDeviceToken('');
+    app.log('didFailToRegisterForRemoteNotificationsWithError' + e.message);
+};
+push.on('error', onError);
 ```
 ## 参考文档
 [cordova常用命令](http://my.oschina.net/jack088/blog/390876?fromerr=f8h2gkFq)  

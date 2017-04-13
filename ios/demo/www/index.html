@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/layer.css" />
+        <link rel="stylesheet" type="text/css" href="css/jqx.base.css" />
+        <title>SDK-DEMO</title>
+    </head>
+    <body>
+        <div class="title">
+            <label id="title-label">&nbsp;</label>
+        </div>
+        <div class="content">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th width="20%">
+                        <label for="appKey" class="title-label">AppKey:</label>
+                    </th>
+                    <td>
+                        <input type="text" id="appKey" readonly="readonly" style="width:95%"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="appSecret" class="title-label">AppSecret:</label>
+                    </th>
+                    <td>
+                        <input type="text" id="appSecret" readonly="readonly" style="width:95%"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="appId" class="title-label">AppID:</label>
+                    </th>
+                    <td>
+                        <input type="text" id="appId" readonly="readonly" style="width:95%"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="clientId" class="title-label">ClientID:</label>
+                    </th>
+                    <td>
+                        <input type="text" id="clientId" readonly="readonly" style="width:95%;" class="transparent-bg-input"/>
+                    </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th nowrap width="20%">
+                        <label for="status" class="title-label">当前状态:</label>
+                    </th>
+                    <td nowrap>
+                        <input type="text" id="status" readonly="readonly" style="display:block;width:90%;" class="transparent-bg-input" value="未启动" />
+                    </td>
+                    <th nowrap width="20%">
+                        <label for="pushModle" class="title-label">推送状态:</label>
+                    </th>
+                    <td nowrap>
+                        <input type="text" id="pushModle" readonly="readonly" style="display:block;width:90%;" class="transparent-bg-input" value="未知" />
+                    </td>
+                </tr>
+            </table>
+
+            <textarea id="logger" rows="20" readonly="readonly"></textarea>
+
+            <table border="0" cellpadding="0" cellspacing="10" width="100%">
+                <tr>
+                    <td width="45%">
+                        <button  id="pushModeBtn" class="transparent-bg-btn" type="button" onclick="app.onPushModeBtnClicked();">开启推送</button>
+                    </td>
+                    <td width="45%">
+                        <button id="startupBtn" class="transparent-bg-btn" type="button" onclick="app.onStartupBtnClicked();">开启</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="transparent-bg-btn" type="button" onclick="app.cleanLog();">清除日志</button>
+                    </td>
+                    <td>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestMoreBtnClicked();">更多</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <textarea id="testMoreViewWrapper" style="display:none;">
+            <div>
+                <div class="title" style="padding-left:12px;">
+                    <a class="btn-back" onclick="layer.closeAll()" >
+                        <span>返回</span>
+                    </a>
+                </div>
+                <hr style="size: 4px;"/>
+                <div class="testMoreView-content">
+
+                    <div class="testMoreView-content-group">
+                    <label class="testMoreView-content-group-title">更多功能</lable>
+                        <input type="text" id="test-get-label" readonly="readonly" style="width:90%"/>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestGetVersion();">[GeTui version]</button>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestGetClientId();">[GeTui clientId]</button>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestGetStatus();">[GeTui status]</button>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestCleanAllNotification();">[GeTui cleanAllNotification]</button>
+                    </div>
+
+                    <hr style="size: 1px;"/>
+
+                    <div class="testMoreView-content-group">
+                        <label class="testMoreView-content-group-title">Device Token</lable>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
+                            <tr>
+                                <th width="30%"><label for="deviceToken" class="title-label">deviceToken:</lable></th>
+                                <td><input type="text" id="deviceToken" style="width:95%"/></td>
+                            </tr>
+                        </table>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestRegisterDeviceToken();">registerDeviceToken</button>
+                    </div>
+
+                    <hr style="size: 1px;"/>
+
+                    <div class="testMoreView-content-group">
+                        <label class="testMoreView-content-group-title">设置标签(splite by comas)</lable>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
+                            <tr>
+                                <th width="30%"><label for="tags" class="title-label">tags:</lable></th>
+                                <td><input type="text" id="tags" style="width:95%"/></td>
+                            </tr>
+                        </table>
+                    <button class="transparent-bg-btn" type="button" onclick="app.onTestSetTags();">setTags</button>
+                    </div>
+
+                    <hr style="size: 1px;"/>
+
+                    <div class="testMoreView-content-group">
+                        <label class="testMoreView-content-group-title">别名绑定</lable>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
+                            <tr>
+                                <th width="30%"><label for="alias" class="title-label">Alias:</lable></th>
+                                <td><input type="text" id="alias" style="width:95%"/></td>
+                            </tr>
+                            <tr>
+                                <th width="30%"><label for="sn" class="title-label">SequenceNum(序列号):</lable></th>
+                                <td><input type="text" id="sn" style="width:95%"/></td>
+                            </tr>
+                        </table>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestBindAlias();">bindAlias</button>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestUnbindAlias();">unbindAlias</button>
+                    </div>
+
+                    <hr style="size: 1px;"/>
+
+                    <div class="testMoreView-content-group">
+                        <label class="testMoreView-content-group-title">发送信息</lable>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
+                            <tr>
+                                <th width="30%"><label for="message" class="title-label">Message:</lable></th>
+                                <td><input type="text" id="message" style="width:95%"/></td>
+                            </tr>
+                        </table>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestSendMessage();">message</button>
+                    </div>
+
+                    <hr style="size: 1px;"/>
+
+                    <div class="testMoreView-content-group">
+                        <label class="testMoreView-content-group-title">设置频道</lable>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
+                            <tr>
+                                <th width="30%"><label for="channelid" class="title-label">Channel ID:</lable></th>
+                                <td><input type="text" id="channelid" style="width:95%"/></td>
+                            </tr>
+                        </table>
+                        <button class="transparent-bg-btn" type="button" onclick="app.onTestSetChannelId();">setChannelId</button>
+                    </div>
+                    <!--
+                     <hr style="size: 1px;"/>
+
+                     <div class="testMoreView-content-group">
+                        <label class="testMoreView-content-group-title">自动运行</lable>
+                            <button class="transparent-bg-btn" type="button" onclick="app.cleanLog();" style="margin-top:5px;">频繁启动销毁SDK</button>
+                            <button class="transparent-bg-btn" type="button" onclick="app.cleanLog();">随即调用SDK方法</button>
+                    </div>
+                    -->
+                     <p>&nbsp;</p>
+                </div>
+            </div>
+        </textarea>
+                <script type="text/javascript">
+            app.initialize();
+
+
+
+            // Wait for device API libraries to load
+            //
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            // device APIs are available
+            //
+            function onDeviceReady() {
+                var element = document.getElementById('deviceProperties');
+                element.innerHTML = 'Device Model: '    + device.model    + '<br />' +
+                                    'Device Cordova: '  + device.cordova  + '<br />' +
+                                    'Device Platform: ' + device.platform + '<br />' +
+                                    'Device UUID: '     + device.uuid     + '<br />' +
+                                    'Device Version: '  + device.version  + '<br />';
+            }
+
+        </script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src='js/jquery-2.1.1.min.js'></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/layer.js"></script>
+        <script type="text/javascript" src="js/jqxcore.js"></script>
+        <script type="text/javascript" src="js/jqxscrollview.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,167 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#E4E4E4;
+    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image:-webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+
+.title {
+    width:100%;
+    padding-top:8%;
+    padding-bottom:4%;
+    background:white;
+}
+
+#title-label {
+    display:block;
+    width:100%;
+    background:white;
+    text-align:center;
+    font-weight:bold;
+}
+
+.content {
+    height:83%;
+    width:90%;
+    padding-top:3%;
+    padding-left:5%;
+    padding-right:5%;
+    position:absolute;
+    overflow:auto;
+}
+
+.testMoreView-content {
+    height:83%;
+    width:100%;
+    padding-top:3%;
+    position:absolute;
+    overflow:auto;
+}
+
+.testMoreView-content-group {
+    width:90%;
+    padding-left:5%;
+    padding-right:5%;
+}
+
+.testMoreView-content-group-title {
+    display:block;
+    width:100%;
+    font-weight:bold;
+    text-align:center;
+}
+
+.title-label {
+    display:block;
+    text-align:right;
+    padding-right:4px;
+}
+
+.transparent-bg-input {
+    background:transparent;
+    border:0px;
+    color:#bd4c46;
+}
+
+.transparent-bg-btn {
+    width:100%;
+    background:transparent;
+    border:0px;
+    color:#3a92eb;
+    font-weight:bold;
+    padding:5px;
+}
+
+textarea {
+    width:100%;
+}
+
+.btn-back {
+    font: 14px/27px Arial,Helvetica,sans-serif;
+    color: #fff;
+    text-decoration: none;
+    
+    position: relative;
+    display: block;
+    margin-top: 11px;
+}
+
+/*按钮主体*/
+.btn-back span {
+    display: inline-block;
+    font-size: 13px;
+    line-height: 27px;
+    height: 27px;
+    padding: 0 10px 0 5px;
+    background: -moz-linear-gradient(top, #5bbfd8, #449fb6);
+    background: -webkit-linear-gradient(top, #5bbfd8, #449fb6);
+    border: 1px solid #2c96b2;
+    border-left: 0;
+    border-radius: 2px 5px 5px 2px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+    
+    margin-left: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+/*左边的小三角*/
+.btn-back:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: -moz-linear-gradient(-45deg, #5bbfd8, #449fb6);/*背景旋转-45°*/
+    background: -webkit-linear-gradient(-45deg, #5bbfd8, #449fb6);
+    border: 1px solid #2c96b2;
+    -webkit-transform-origin: 0 0;/*设置基点为0,0*/
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scaleX(0.8) rotate(45deg);/*X轴压缩，旋转45°*/
+    -moz-transform: scaleX(0.8) rotate(45deg);
+    border-radius: 3px 2px;
+    
+    position: absolute;
+    left: 13px;
+    top: -1px;
+}
+
+
