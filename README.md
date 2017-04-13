@@ -4,14 +4,21 @@
 ```
 npm install -g cordova
 ```
-* 安装plugman
+* 安装 plugman
 ```
 npm install -g plugman
 ```
-* 创建cordova工程
+* 创建 cordova 工程
 ```
 cordova create 目录名 应用包名 工程名
 ```
+* 使用 cordova 命令方式添加插件
+
+	其中 PUSH_APPID、PUSH_APPKEY、PUSH_APPSECRET 为 Android 所需参数，iOS 需要另行配置，但也必须设值，否则添加失败。
+
+````
+cordova plugin add cordova-plugin-getuisdk --variable PUSH_APPID=你的appid --variable PUSH_APPKEY=你的appkey --variable PUSH_APPSECRET=你的appsecret
+````
 ## Android平台支持
 * 添加android平台
 ```
@@ -19,6 +26,7 @@ cordova platform add android
 ```
 * 添加个推推送
 ```
+// plugman 集成方式，若已使用 cordova 命令集成则可略过。
 plugman install --platform android --project android平台目录 --plugin https://github.com/GetuiLaboratory/cordova-plugin-getuisdk --plugins_dir 你的插件目录 --variable PUSH_APPID=你的appid --variable PUSH_APPKEY=你的appkey --variable PUSH_APPSECRET=你的appsecret
 ```
 * 安装之后需要重新构建工程
@@ -80,17 +88,25 @@ function getVersion(back){
 
 ## iOS平台支持
 * 添加ios平台
+
 ```
 cordova platform add ios
 ```
 * 添加个推推送
 ```
+// plugman 集成方式，若已使用 cordova 命令集成则可略过此步骤。
 plugman install --platform ios --project ios平台目录 --plugin https://github.com/GetuiLaboratory/cordova-plugin-getuisdk --plugins_dir 你的插件目录
 ```
 * 安装之后需要重新构建工程
 ```
 cordova build
 ```
+* iOS 需要添加依赖插件 phonegap-plugin-push
+
+````
+cordova plugin add phonegap-plugin-push
+````
+
 * JS文件中进行个推初始化
 
 ##### 回调函数
@@ -161,7 +177,7 @@ GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(onSetPushMode);
 //个推平台申请的参数KAppId, KAppKey, KAppSecret
 GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret);
 
-// 使用 phonegap-plugin-push 获取 deviceToken 并注册到个推 SDK
+// 需要依赖插件 phonegap-plugin-push 获取 deviceToken 并注册到个推 SDK
 var options = {
     ios: {
         alert: "true",
@@ -193,6 +209,8 @@ var onError = function(e) {
 push.on('error', onError);
 ```
 ## 参考文档
+[iOS Demo 链接](https://github.com/GetuiLaboratory/cordova-plugin-getuisdk/tree/master/ios/demo/www)  
+
 [cordova常用命令](http://my.oschina.net/jack088/blog/390876?fromerr=f8h2gkFq)  
 
 [plugman使用](http://cordova.apache.org/docs/en/latest/plugin_ref/plugman.html)  

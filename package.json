@@ -1,0 +1,25 @@
+{
+  "name": "cordova-plugin-getuisdk",
+  "version": "1.0.3",
+  "description": "cordova plugin for getui sdk push",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GetuiLaboratory/cordova-plugin-getuisdk.git"
+  },
+  "keywords": [
+    "getui",
+    "push",
+    "ecosystem:cordova",
+    "ecosystem:phonegap",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "getui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GetuiLaboratory/cordova-plugin-getuisdk/issues"
+  },
+  "homepage": "https://github.com/GetuiLaboratory/cordova-plugin-getuisdk#readme"
+}
