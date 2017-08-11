@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-getuisdk"
-    version="1.0.4">
+    version="1.0.7">
     <name>GeTuiSdk</name>
     <description>getui sdk Plugin</description>
     <license>Apache 2.0</license>
@@ -44,8 +44,8 @@
 
         <header-file src="ios/src/GeTuiSdkPlugin.h" target-dir="src"/>
         <source-file src="ios/src/GeTuiSdkPlugin.m" target-dir="src" />
-        <header-file src="ios/GtSdkLib/GeTuiSdk.h" target-dir="GtSdkLib" />
-        <source-file src="ios/GtSdkLib/libGeTuiSdk-1.6.4.0.a" framework="true"/>
+        
+        <framework src="ios/GtSdkLib/GTSDK.framework" weak="true" custom="true"/>
 
         <framework src="libsqlite3.tbd" weak="true"/>
         <framework src="libz.tbd" weak="true"/>

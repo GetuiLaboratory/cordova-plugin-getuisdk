@@ -6,7 +6,7 @@
 //
 
 #import <Cordova/CDVPlugin.h>
-#import "GeTuiSdk.h"
+#import <GTSDK/GeTuiSdk.h>
 
 @interface GeTuiSdkPlugin : CDVPlugin<GeTuiSdkDelegate>
 
