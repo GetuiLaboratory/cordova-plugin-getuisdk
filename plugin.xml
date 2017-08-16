@@ -44,7 +44,7 @@
 
         <header-file src="ios/src/GeTuiSdkPlugin.h" target-dir="src"/>
         <source-file src="ios/src/GeTuiSdkPlugin.m" target-dir="src" />
-        
+
         <framework src="ios/GtSdkLib/GTSDK.framework" weak="true" custom="true"/>
 
         <framework src="libsqlite3.tbd" weak="true"/>
@@ -180,27 +180,11 @@
             android:taskAffinity="com.igexin.sdk.PushActivityTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-            <service
-            android:name="com.igexin.download.DownloadService"
-            android:process=":pushservice" />
-
-            <receiver android:name="com.igexin.download.DownloadReceiver" >
-                <intent-filter>
-                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                </intent-filter>
-            </receiver>
-
-            <provider
-            android:name="com.igexin.download.DownloadProvider"
-            android:exported="true"
-            android:authorities="downloads.$PACKAGE_NAME"
-            android:process=":pushservice" />
-
             <!-- 个推SDK配置结束 -->
         </config-file>
 
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
-        <source-file src="android/GtSdkLib/GetuiSDK2.10.2.0.jar" target-dir="libs"/>
+        <source-file src="android/GtSdkLib/GetuiSDK2.10.3.5.jar" target-dir="libs"/>
 
         <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext2.so" target-dir="libs/arm64-v8a" />
         <source-file src="android/GtSdkLib/armeabi/libgetuiext2.so" target-dir="libs/armeabi" />
@@ -215,6 +199,9 @@
         <resource-file src="android/res/drawable-hdpi/push.png" target="res/drawable-hdpi/push.png" />
         <resource-file src="android/res/drawable-ldpi/push.png" target="res/drawable-ldpi/push.png" />
         <resource-file src="android/res/drawable-mdpi/push.png" target="res/drawable-mdpi/push.png" />
+        <resource-file src="android/res/drawable-hdpi/push_small.png" target="res/drawable-hdpi/push_small.png" />
+        <resource-file src="android/res/drawable-ldpi/push_small.png" target="res/drawable-ldpi/push_small.png" />
+        <resource-file src="android/res/drawable-mdpi/push_small.png" target="res/drawable-mdpi/push_small.png" />
 
         <source-file src="android/src/GeTuiSdkPlugin.java" target-dir="src/com/igexin/getui/phonegap" />
         <source-file src="android/src/GeTuiSdkPushBean.java" target-dir="src/com/igexin/getui/phonegap" />
