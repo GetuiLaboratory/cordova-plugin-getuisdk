@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-getuisdk",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "cordova plugin for getui sdk push",
   "scripts": {
   },
