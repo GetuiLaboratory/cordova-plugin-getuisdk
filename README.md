@@ -106,10 +106,10 @@ cordova build
 ````
 cordova plugin add phonegap-plugin-push --variable SENDER_ID="My Sender ID"
 ````
-
+
 **注意：** 
 
-phonegap-plugin-push 是 cordova 官方插件，需要考虑与 cordova 以及 cordova-ios 工具的兼容性问题，否则不能正常使用该插件。推荐的兼容性版本配置为：cordova@8.0.0、cordova-ios@4.4.0 、phonegap-plugin-push@1.8.4
+phonegap-plugin-push 是 cordova 官方插件，需要考虑与 cordova 以及 cordova-ios 工具的兼容性问题，否则不能正常使用该插件。推荐的兼容性版本配置为：cordova@8.0.0、cordova-ios@4.4.0 、phonegap-plugin-push@1.8.4
 
 * JS文件中进行个推初始化
 
