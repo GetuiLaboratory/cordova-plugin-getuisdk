@@ -57,6 +57,7 @@
         <framework src="SystemConfiguration.framework" weak="true"/>
         <framework src="AVFoundation.framework" weak="true"/>
         <framework src="UserNotifications.framework" weak="true"/>
+        <framework src="PushKit.framework" weak="true"/>
     </platform>
 
     <platform name="android">

@@ -17,15 +17,15 @@
  * under the License.
  */
 
-var KAppId = 'iMahVVxurw6BNr7XSn9EF2';
-var KAppKey = 'yIPfqwq6OMAPp6dkqgLpG5';
-var KAppSecret = 'G0aBqAD6t79JfzTB6Z5lo5';
+var KAppId = 'D4hs9Z3Efa76e3jAqI0t55';
+var KAppKey = 'y8V8E19DLp75ATXd1RDBf3';
+var KAppSecret = 'f0TsC2nwYX6H5fijzQvSK5';
 
 var app = {
     _isPushModeOff: false,
 
     initialize: function() {
-
+        
         app.bindEvents();
     },
 
@@ -56,6 +56,7 @@ var app = {
         GeTuiSdk.setGeTuiSDkDidNotifySdkStateCallback(app.onNotifySdkState);
         GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(app.onSetPushMode);
         GeTuiSdk.setGeTuiSdkDidAliasActionCallback(app.onSetAliasAction);
+        GeTuiSdk.voipRegistrationWithVoipPushCallback(app.onReceiveVoipPayload);
 
         app.startGeTuiSdk();
 
@@ -115,6 +116,12 @@ var app = {
 
     onOccurError: function(err) {
         app.log('OccurError Error code:' + err.code + ' error desc:' + err.desc);
+    },
+    
+    onReceiveVoipPayload: function(payload, gmid, type) {
+        app.log('payload:' + payload);
+        app.log('gmid:' + gmid);
+        app.log('type:' + type);
     },
 
     onNotifySdkState: function(status) {
@@ -243,7 +250,7 @@ var app = {
 
     onTestSetBadge:function() {
       var badge = $('#badge').val();
-
+      
       if (badge && badge.length > 0) {
           GeTuiSdk.setBadge(Number(badge));
           app.showDialog('Badge', '角标设置成功');

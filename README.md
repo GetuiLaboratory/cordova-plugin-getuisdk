@@ -101,11 +101,15 @@ plugman install --platform ios --project ios平台目录 --plugin https://github
 ```
 cordova build
 ```
-* iOS 需要添加依赖插件 phonegap-plugin-push，直接复制下面命令，不需要考虑 SENDER_ID 的内容
+* iOS 需要添加依赖插件 phonegap-plugin-push，直接复制下面命令，不需要考虑 SENDER_ID 的内容。
 
 ````
 cordova plugin add phonegap-plugin-push --variable SENDER_ID="My Sender ID"
 ````
+
+**注意：** 
+
+phonegap-plugin-push 是 cordova 官方插件，需要考虑与 cordova 以及 cordova-ios 工具的兼容性问题，否则不能正常使用该插件。推荐的兼容性版本配置为：cordova@8.0.0、cordova-ios@4.4.0 、phonegap-plugin-push@1.8.4
 
 * JS文件中进行个推初始化
 
@@ -165,6 +169,12 @@ function onSetPushMode(isModeOff, err) {
 		//TODO 设置关闭模式成功
 	}
 };
+
+function onReceiveVoipPayload(payload, gmid, type) {
+	 //TODO payload = 透传数据
+	 //TODO gmid = gmid
+	 //TODO type = push类型
+};
 ```
 ##### 初始化插件
 ```
@@ -174,7 +184,10 @@ GeTuiSdk.setGeTuiSdkDidSendMessageCallback(onSendMessage);
 GeTuiSdk.setGeTuiSdkDidOccurErrorCallback(onOccurError);
 GeTuiSdk.setGeTuiSDkDidNotifySdkStateCallback(onNotifySdkState);
 GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(onSetPushMode);
-//个推平台申请的参数KAppId, KAppKey, KAppSecret
+// 注册 Voip 并监听 Voip 推送回调信息，1.0.9 版本加入该功能
+GeTuiSdk.voipRegistrationWithVoipPushCallback(app.onReceiveVoipPayload);
+
+// 个推平台申请的参数KAppId, KAppKey, KAppSecret
 GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret);
 
 // 需要依赖插件 phonegap-plugin-push 获取 deviceToken 并注册到个推 SDK
@@ -208,7 +221,16 @@ var onError = function(e) {
 };
 push.on('error', onError);
 ```
+
+**注意：** 
+
+若使用 voip 功能，需要在生成的 Xcode 项目中添加 Voip 权限。
+在 info.plist 中添加 voip 权限，如图：
+
+![voip权限](http://docs.getui.com/img/img_getui_mobile_ios_xcode_19.png)
+
 ## 参考文档
+
 [iOS Demo 链接](https://github.com/GetuiLaboratory/cordova-plugin-getuisdk/tree/master/ios/demo/www)  
 
 [cordova常用命令](http://my.oschina.net/jack088/blog/390876?fromerr=f8h2gkFq)  

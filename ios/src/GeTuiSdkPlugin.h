@@ -7,12 +7,14 @@
 
 #import <Cordova/CDVPlugin.h>
 #import <GTSDK/GeTuiSdk.h>
+#import <PushKit/PushKit.h>
 
-@interface GeTuiSdkPlugin : CDVPlugin<GeTuiSdkDelegate>
+@interface GeTuiSdkPlugin : CDVPlugin<GeTuiSdkDelegate,PKPushRegistryDelegate>
 
 - (void)startSdkWithAppId:(CDVInvokedUrlCommand *)command;
 - (void)destroy:(CDVInvokedUrlCommand *)command;
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command;
+- (void)voipRegistrationWithVoipPushCallback:(CDVInvokedUrlCommand *)command;
 
 - (void)setPushModeOff:(CDVInvokedUrlCommand *)command;
 - (void)setPushModeOn:(CDVInvokedUrlCommand *)command;
@@ -34,7 +36,6 @@
 - (void)setChannelId:(CDVInvokedUrlCommand *)command; // 1.5.0+
 - (void)handleRemoteNotification:(CDVInvokedUrlCommand *)command; // 1.5.0+ 远程推送消息处理
 
-
 - (void)setGeTuiSdkDidRegisterClientCallback:(CDVInvokedUrlCommand *)command;
 - (void)setGeTuiSdkDidReceivePayloadCallback:(CDVInvokedUrlCommand *)command;
 - (void)setGeTuiSdkDidSendMessageCallback:(CDVInvokedUrlCommand *)command;
@@ -44,6 +45,7 @@
 - (void)setGeTuiSdkDidAliasActionCallback:(CDVInvokedUrlCommand *)command; // 1.5.0+
 
 //protocol GexinSdkDelegate
+
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId;
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId
                              andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId;
@@ -53,5 +55,10 @@
 - (void)GeTuiSdkDidSetPushMode:(BOOL)isModeOff error:(NSError *)error;
 - (void)GeTuiSdkDidAliasAction:(NSString *)action result:(BOOL)isSuccess sequenceNum:(NSString *)aSn error:(NSError *)aError;
 
+// protocol PKPushRegistryDelegate
+
+- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type;
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(NSString *)type;
 
 @end
+

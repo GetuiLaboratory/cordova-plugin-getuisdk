@@ -86,9 +86,9 @@
                     </td>
                 </tr>
             </table>
-
+            
             <textarea id="logger" rows="20" readonly="readonly"></textarea>
-
+            
             <table border="0" cellpadding="0" cellspacing="10" width="100%">
                 <tr>
                     <td width="45%">
@@ -117,7 +117,7 @@
                 </div>
                 <hr style="size: 4px;"/>
                 <div class="testMoreView-content">
-
+                    
                     <div class="testMoreView-content-group">
                     <label class="testMoreView-content-group-title">更多功能</lable>
                         <input type="text" id="test-get-label" readonly="readonly" style="width:90%"/>
@@ -126,9 +126,9 @@
                         <button class="transparent-bg-btn" type="button" onclick="app.onTestGetStatus();">[GeTui status]</button>
                         <button class="transparent-bg-btn" type="button" onclick="app.onTestCleanAllNotification();">[GeTui cleanAllNotification]</button>
                     </div>
-
+                    
                     <hr style="size: 1px;"/>
-
+                    
                     <div class="testMoreView-content-group">
                         <label class="testMoreView-content-group-title">Device Token</lable>
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
@@ -139,9 +139,9 @@
                         </table>
                         <button class="transparent-bg-btn" type="button" onclick="app.onTestRegisterDeviceToken();">registerDeviceToken</button>
                     </div>
-
+                    
                     <hr style="size: 1px;"/>
-
+                    
                     <div class="testMoreView-content-group">
                         <label class="testMoreView-content-group-title">设置标签(splite by comas)</lable>
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
@@ -152,9 +152,9 @@
                         </table>
                     <button class="transparent-bg-btn" type="button" onclick="app.onTestSetTags();">setTags</button>
                     </div>
-
+                    
                     <hr style="size: 1px;"/>
-
+                    
                     <div class="testMoreView-content-group">
                         <label class="testMoreView-content-group-title">别名绑定</lable>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
@@ -170,9 +170,9 @@
                         <button class="transparent-bg-btn" type="button" onclick="app.onTestBindAlias();">bindAlias</button>
                         <button class="transparent-bg-btn" type="button" onclick="app.onTestUnbindAlias();">unbindAlias</button>
                     </div>
-
+                    
                     <hr style="size: 1px;"/>
-
+                    
                     <div class="testMoreView-content-group">
                         <label class="testMoreView-content-group-title">发送信息</lable>
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
@@ -185,7 +185,7 @@
                     </div>
 
                     <hr style="size: 1px;"/>
-
+                    
                     <div class="testMoreView-content-group">
                         <label class="testMoreView-content-group-title">设置频道</lable>
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:5px;">
@@ -198,7 +198,7 @@
                     </div>
                     <!--
                      <hr style="size: 1px;"/>
-
+                    
                      <div class="testMoreView-content-group">
                         <label class="testMoreView-content-group-title">自动运行</lable>
                             <button class="transparent-bg-btn" type="button" onclick="app.cleanLog();" style="margin-top:5px;">频繁启动销毁SDK</button>
@@ -210,7 +210,7 @@
             </div>
         </textarea>
                 <script type="text/javascript">
-            app.initialize();
+            app.initialize(); 
 
 
 
@@ -229,7 +229,7 @@
                                     'Device Version: '  + device.version  + '<br />';
             }
 
-        </script>
+        </script> 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src='js/jquery-2.1.1.min.js'></script>
         <script type="text/javascript" src="js/index.js"></script>

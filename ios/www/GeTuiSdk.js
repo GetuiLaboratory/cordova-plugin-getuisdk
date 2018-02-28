@@ -138,6 +138,11 @@ var GeTuiSdk = {
    setGeTuiSdkDidAliasActionCallback:function(callback) {
        argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidAliasActionCallback', arguments);
        exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidAliasActionCallback', []);
-   }
+   },
+   
+   voipRegistrationWithVoipPushCallback: function(callback) {
+		argscheck.checkArgs('f', 'GeTuiSdk.voipRegistrationWithVoipPushCallback', arguments);
+		exec(callback, null, 'GeTuiSdk', 'voipRegistrationWithVoipPushCallback', []);
+	}
 };
 module.exports = GeTuiSdk;
