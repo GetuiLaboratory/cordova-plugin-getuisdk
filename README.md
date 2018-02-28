@@ -170,6 +170,7 @@ function onSetPushMode(isModeOff, err) {
 	}
 };
 
+// 接收到 VoIP 推送的回调
 function onReceiveVoipPayload(payload, gmid, type) {
 	 //TODO payload = 透传数据
 	 //TODO gmid = gmid
@@ -184,7 +185,7 @@ GeTuiSdk.setGeTuiSdkDidSendMessageCallback(onSendMessage);
 GeTuiSdk.setGeTuiSdkDidOccurErrorCallback(onOccurError);
 GeTuiSdk.setGeTuiSDkDidNotifySdkStateCallback(onNotifySdkState);
 GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(onSetPushMode);
-// 注册 Voip 并监听 Voip 推送回调信息，1.0.9 版本加入该功能
+// 注册 VoIP 并监听 VoIP 推送回调信息，1.0.9 版本加入该功能
 GeTuiSdk.voipRegistrationWithVoipPushCallback(app.onReceiveVoipPayload);
 
 // 个推平台申请的参数KAppId, KAppKey, KAppSecret
@@ -224,8 +225,8 @@ push.on('error', onError);
 
 **注意：** 
 
-若使用 voip 功能，需要在生成的 Xcode 项目中添加 Voip 权限。
-在 info.plist 中添加 voip 权限，如图：
+若使用 VoIP 功能，需要在生成的 Xcode 项目中添加 VoIP 权限。
+在 info.plist 中添加 VoIP 权限，如图：
 
 ![voip权限](http://docs.getui.com/img/img_getui_mobile_ios_xcode_19.png)
 
