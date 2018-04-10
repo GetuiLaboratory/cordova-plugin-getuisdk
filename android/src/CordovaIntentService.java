@@ -12,6 +12,7 @@ import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
 import com.igexin.sdk.message.FeedbackCmdMessage;
 import com.igexin.sdk.message.GTCmdMessage;
+import com.igexin.sdk.message.GTNotificationMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
 import com.igexin.sdk.message.SetTagCmdMessage;
 
@@ -37,8 +38,12 @@ public class CordovaIntentService extends GTIntentService {
     private final int CALLBACK_PAYLOAD = 2;
     private final int CALLBACK_CID = 3;
     private final int CALLBACK_ISONLINE = 4;
-
+    private final int CALLBACK_NOTIFICATION_ARRIVED = 5;
+    private final int CALLBACK_NOTIFICATION_CLICKED = 6;
     
+    // 为了观察透传数据变化.
+    private static int cnt;
+
     public CordovaIntentService() { }
 
 
@@ -81,6 +86,14 @@ public class CordovaIntentService extends GTIntentService {
                 case CALLBACK_ISONLINE:
                     String online = "javascript:GeTuiSdkPlugin.callback_data('online','"+ bean.isOnline() +"')";
                     cordovaWebViewReceiver.loadUrl(online);
+                    break;
+                case CALLBACK_NOTIFICATION_ARRIVED:
+                    String arrived = "javascript:GeTuiSdkPlugin.callback_data('onNotificationArrived','"+ bean.getNotificationMessage()+"')";
+                    cordovaWebViewReceiver.loadUrl(arrived);
+                    break;
+                case CALLBACK_NOTIFICATION_CLICKED:
+                    String clicked = "javascript:GeTuiSdkPlugin.callback_data('onNotificationClicked','"+ bean.getNotificationMessage()+"')";
+                    cordovaWebViewReceiver.loadUrl(clicked);
                     break;
                 default:
                     break;
@@ -134,7 +147,6 @@ public class CordovaIntentService extends GTIntentService {
     }
 
 
-
     @Override
     public void onReceiveOnlineState(Context context, boolean online) {
         Log.d(TAG, "onReceiveOnlineState -> " + (online ? "online" : "offline"));
@@ -147,6 +159,36 @@ public class CordovaIntentService extends GTIntentService {
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) { }
 
+    @Override
+    public void onNotificationMessageArrived(Context context, GTNotificationMessage msg) {
+        Log.d(TAG, "onNotificationMessageArrived -> " + "appid = " + msg.getAppid() + "\ntaskid = " + msg.getTaskId() + "\nmessageid = "
+                + msg.getMessageId() + "\npkg = " + msg.getPkgName() + "\ncid = " + msg.getClientId() + "\ntitle = "
+                + msg.getTitle() + "\ncontent = " + msg.getContent());
+        String notificationMessage = "";
+        String taskId = msg.getTaskId();
+        String messageId = msg.getMessageId();
+        String title = msg.getTitle();
+        String content = msg.getContent();
+        notificationMessage = taskId + messageId + title + content;
+        bean = new GeTuiSdkPushBean();
+        bean.setNotificationMessage(notificationMessage);
+        dealWithEvents(CALLBACK_NOTIFICATION_ARRIVED,bean);
+    }
+    @Override
+    public void onNotificationMessageClicked(Context context, GTNotificationMessage msg) {
+        Log.d(TAG, "onNotificationMessageClicked -> " + "appid = " + msg.getAppid() + "\ntaskid = " + msg.getTaskId() + "\nmessageid = "
+                + msg.getMessageId() + "\npkg = " + msg.getPkgName() + "\ncid = " + msg.getClientId() + "\ntitle = "
+                + msg.getTitle() + "\ncontent = " + msg.getContent());
+        String notificationMessage = "";
+        String taskId = msg.getTaskId();
+        String messageId = msg.getMessageId();
+        String title = msg.getTitle();
+        String content = msg.getContent();
+        notificationMessage = taskId + messageId + title + content;
+        bean = new GeTuiSdkPushBean();
+        bean.setNotificationMessage(notificationMessage);
+        dealWithEvents(CALLBACK_NOTIFICATION_CLICKED,bean);
+    }
 
 
 }

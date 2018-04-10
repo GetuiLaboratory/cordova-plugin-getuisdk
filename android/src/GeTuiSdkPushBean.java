@@ -6,6 +6,7 @@ public class GeTuiSdkPushBean {
 	private String payload;
 	private String cid;
 	private boolean isOnline;
+	private String notificationMessage;
 
 	public int getPid() {
 		return pid;
@@ -38,4 +39,9 @@ public class GeTuiSdkPushBean {
 	public void setOnline(boolean isOnline) {
 		this.isOnline = isOnline;
 	}
+
+	public void setNotificationMessage(String msg){ this.notificationMessage = msg; }
+
+	public String getNotificationMessage(){return notificationMessage; }
+
 }
