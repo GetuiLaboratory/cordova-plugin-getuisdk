@@ -50,7 +50,11 @@ function callback(type, data) {
 		} else {
 			//TODO 已离线
 		}
-	}
+	}else if(type == 'onNotificationArrived') {
+          alert('onNotificationArrived' + data) //通知到达回调
+    } else if(type == 'onNotificationClicked') {
+          alert('onNotificationClicked' + data) //点击通知事件回调
+    }
 };
 ```
 ##### 初始化插件
