@@ -185,7 +185,7 @@
         </config-file>
 
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
-        <source-file src="android/GtSdkLib/GetuiSDK2.10.3.5.jar" target-dir="libs"/>
+        <source-file src="android/GtSdkLib/GetuiSDK4.3.0.0.jar" target-dir="libs"/>
 
         <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext2.so" target-dir="libs/arm64-v8a" />
         <source-file src="android/GtSdkLib/armeabi/libgetuiext2.so" target-dir="libs/armeabi" />
