@@ -22,7 +22,8 @@ cordova plugin add cordova-plugin-getuisdk --variable PUSH_APPID=你的appid --v
 ## Android平台支持
 * 添加android平台
 ```
-cordova platform add android
+cordova platform add android@6.4.0
+在cordova8.0.0版本platform add默认是使用android@7.0.0/文件的工程目录发生了变化。暂时有兼容问题，建议使用android@6.4.0
 ```
 * 添加个推推送
 ```
@@ -50,7 +51,7 @@ function callback(type, data) {
 		} else {
 			//TODO 已离线
 		}
-	}else if(type == 'onNotificationArrived') {
+    }else if(type == 'onNotificationArrived') {
           alert('onNotificationArrived' + data) //通知到达回调
     } else if(type == 'onNotificationClicked') {
           alert('onNotificationClicked' + data) //点击通知事件回调
