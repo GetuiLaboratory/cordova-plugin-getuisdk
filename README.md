@@ -25,6 +25,18 @@ cordova plugin add cordova-plugin-getuisdk --variable PUSH_APPID=你的appid --v
 cordova platform add android@6.4.0
 在cordova8.0.0版本platform add默认是使用android@7.0.0/文件的工程目录发生了变化。暂时有兼容问题，建议使用android@6.4.0
 ```
+* 如果你希望使用CordovaAndroid@7.0
+
+ ```
+建议用户修改路径
+<!-- An existing config.xml -->
+<edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+
+<!-- needs to change to -->
+<edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge"> 
+ ```
+
+
 * 添加个推推送
 ```
 // plugman 集成方式，若已使用 cordova 命令集成则可略过。
@@ -244,3 +256,5 @@ push.on('error', onError);
 [plugman使用](http://cordova.apache.org/docs/en/latest/plugin_ref/plugman.html)  
 
 [个推官方文档](http://docs.getui.com/)
+
+[Cordova Android@7.0](https://cordova.apache.org/announcements/2017/12/04/cordova-android-7.0.0.html)
