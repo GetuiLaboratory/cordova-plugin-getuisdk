@@ -226,6 +226,7 @@
 
     NSArray *array = [NSArray arrayWithObjects:payloadMsg, taskId, msgId, @(offLine), appId, nil];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
+    [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_receivePayloadCallbackId];
 }
 
@@ -326,6 +327,7 @@
     
     NSArray *array = [NSArray arrayWithObjects:payload.dictionaryPayload[@"payload"], payload.dictionaryPayload[@"_gmid_"], type, nil];
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
+    [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_didReceiveIncomingVoipPushCallback];
 }
 
