@@ -145,11 +145,6 @@ var GeTuiSdk = {
 		argscheck.checkArgs('f', 'GeTuiSdk.voipRegistrationWithVoipPushCallback', arguments);
 		exec(callback, null, 'GeTuiSdk', 'voipRegistrationWithVoipPushCallback', []);
 	},
-    
-   appLinkWithPushCallback: function(callback) {
-        argscheck.checkArgs('f', 'GeTuiSdk.appLinkWithPushCallback', arguments);
-        exec(callback, null, 'GeTuiSdk', 'appLinkWithPushCallback', []);
-    }
 };
 module.exports = GeTuiSdk;
 

@@ -15,7 +15,6 @@
 - (void)destroy:(CDVInvokedUrlCommand *)command;
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command;
 - (void)voipRegistrationWithVoipPushCallback:(CDVInvokedUrlCommand *)command;
-- (void)appLinkWithPushCallback:(CDVInvokedUrlCommand *)command;
 
 - (void)setPushModeOff:(CDVInvokedUrlCommand *)command;
 - (void)setPushModeOn:(CDVInvokedUrlCommand *)command;

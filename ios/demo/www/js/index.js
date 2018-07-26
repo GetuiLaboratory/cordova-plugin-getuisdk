@@ -57,7 +57,6 @@ var app = {
         GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(app.onSetPushMode);
         GeTuiSdk.setGeTuiSdkDidAliasActionCallback(app.onSetAliasAction);
         GeTuiSdk.voipRegistrationWithVoipPushCallback(app.onReceiveVoipPayload);
-        GeTuiSdk.appLinkWithPushCallback(app.onReceiveAppLink);
 
         app.startGeTuiSdk();
 
@@ -101,10 +100,6 @@ var app = {
             app.log('didFailToRegisterForRemoteNotificationsWithError' + e.message);
         };
         push.on('error', onError);
-    },
-
-    onReceiveAppLink: function(payload, type) {
-        app.log('type:' + type + 'payload:' + payload);
     },
     
     onRegisterClient: function(clientId) {

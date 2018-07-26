@@ -257,4 +257,6 @@ push.on('error', onError);
 
 [个推官方文档](http://docs.getui.com/)
 
+[AppLink接入](http://docs.getui.com/getui/mobile/ios/applink/)
+
 [Cordova Android@7.0](https://cordova.apache.org/announcements/2017/12/04/cordova-android-7.0.0.html)
