@@ -17,7 +17,7 @@
  * under the License.
  */
 
-var KAppId = 'D4hs9Z3Efa76e3jAqI0t55';
+var KAppId = 'iMahVVxurw6BNr7XSn9EF2';
 var KAppKey = 'y8V8E19DLp75ATXd1RDBf3';
 var KAppSecret = 'f0TsC2nwYX6H5fijzQvSK5';
 
@@ -57,6 +57,7 @@ var app = {
         GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(app.onSetPushMode);
         GeTuiSdk.setGeTuiSdkDidAliasActionCallback(app.onSetAliasAction);
         GeTuiSdk.voipRegistrationWithVoipPushCallback(app.onReceiveVoipPayload);
+        GeTuiSdk.appLinkWithPushCallback(app.onReceiveAppLink);
 
         app.startGeTuiSdk();
 
@@ -102,6 +103,10 @@ var app = {
         push.on('error', onError);
     },
 
+    onReceiveAppLink: function(payload, type) {
+        app.log('type:' + type + 'payload:' + payload);
+    },
+    
     onRegisterClient: function(clientId) {
         $('#clientId').val(clientId);
     },
@@ -123,7 +128,9 @@ var app = {
         app.log('gmid:' + gmid);
         app.log('type:' + type);
     },
-
+    
+    
+    
     onNotifySdkState: function(status) {
         var callback = function(status) {
             switch (status) {

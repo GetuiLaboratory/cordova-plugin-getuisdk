@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-getuisdk.GeTuiSdk", function(require, exports, module) {
 var exec = require('cordova/exec');
 var	argscheck = require('cordova/argscheck');
 
@@ -143,6 +144,13 @@ var GeTuiSdk = {
    voipRegistrationWithVoipPushCallback: function(callback) {
 		argscheck.checkArgs('f', 'GeTuiSdk.voipRegistrationWithVoipPushCallback', arguments);
 		exec(callback, null, 'GeTuiSdk', 'voipRegistrationWithVoipPushCallback', []);
-	}
+	},
+    
+   appLinkWithPushCallback: function(callback) {
+        argscheck.checkArgs('f', 'GeTuiSdk.appLinkWithPushCallback', arguments);
+        exec(callback, null, 'GeTuiSdk', 'appLinkWithPushCallback', []);
+    }
 };
 module.exports = GeTuiSdk;
+
+});

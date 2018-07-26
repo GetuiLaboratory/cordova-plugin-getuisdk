@@ -17,6 +17,7 @@
     NSString *_setPushModeCallbackId;
     NSString *_aliasActionCallbackId;
     NSString *_didReceiveIncomingVoipPushCallback;
+    NSString *_didReceiveIncomingAppLinkPushCallback;
 }
 
 @end
@@ -31,6 +32,7 @@
         _occurErrorCallbackId = nil;
         _aliasActionCallbackId = nil;
         _didReceiveIncomingVoipPushCallback = nil;
+        _didReceiveIncomingAppLinkPushCallback = nil;
     }
     return self;
 }
@@ -41,6 +43,7 @@
     NSString *appSecret = [command argumentAtIndex:2];
 
     [GeTuiSdk startSdkWithAppId:appid appKey:appKey appSecret:appSecret delegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AppLinkCallBack:) name:@"AppLinkCallBack" object:nil];
 }
 
 - (void)destroy:(CDVInvokedUrlCommand *)command {
@@ -338,6 +341,20 @@
     // Set the push type to VoIP
     voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
     _didReceiveIncomingVoipPushCallback = command.callbackId;
+}
+
+- (void)appLinkWithPushCallback:(CDVInvokedUrlCommand *)command{
+    _didReceiveIncomingAppLinkPushCallback = command.callbackId;
+}
+
+- (void)AppLinkCallBack:(NSNotification *)noti{
+    if (!_didReceiveIncomingAppLinkPushCallback) {
+        return;
+    }
+    
+    NSArray *array = [NSArray arrayWithObjects:noti.userInfo[@"payload"], noti.userInfo[@"type"], nil];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_didReceiveIncomingAppLinkPushCallback];
 }
 
 @end
