@@ -242,7 +242,7 @@ push.on('error', onError);
 
 **注意：** 
 
-若使用 VoIP 功能，需要在生成的 Xcode 项目中添加 VoIP 权限。
+若使用 VoIP 功能，需要在生成的 Xcode 项目中添加 VoIP 权限，还需要再Xcode项目中导入PushKit.Framework库以Optional方式引入。
 在 info.plist 中添加 VoIP 权限，如图：
 
 ![voip权限](http://docs.getui.com/img/img_getui_mobile_ios_xcode_19.png)
