@@ -24,6 +24,7 @@ cordova plugin add cordova-plugin-getuisdk --variable PUSH_APPID=你的appid --v
 ```
 cordova platform add android@6.4.0
 在cordova8.0.0版本platform add默认是使用android@7.0.0/文件的工程目录发生了变化。暂时有兼容问题，建议使用android@6.4.0
+更新至npm1.1.5，更新sdk至4.3.2.0，替换so为libgetuiext3.so
 ```
 * 如果你希望使用CordovaAndroid@7.0
 
