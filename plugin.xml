@@ -185,15 +185,15 @@
         </config-file>
 
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
-        <source-file src="android/GtSdkLib/GetuiSDK4.3.0.0.jar" target-dir="libs"/>
+        <source-file src="android/GtSdkLib/GetuiSDK4.3.2.0.jar" target-dir="libs"/>
 
-        <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext2.so" target-dir="libs/arm64-v8a" />
-        <source-file src="android/GtSdkLib/armeabi/libgetuiext2.so" target-dir="libs/armeabi" />
-        <source-file src="android/GtSdkLib/armeabi-v7a/libgetuiext2.so" target-dir="libs/armeabi-v7a" />
-        <source-file src="android/GtSdkLib/mips/libgetuiext2.so" target-dir="libs/mips" />
-        <source-file src="android/GtSdkLib/mips64/libgetuiext2.so" target-dir="libs/mips64" />
-        <source-file src="android/GtSdkLib/x86/libgetuiext2.so" target-dir="libs/x86" />
-        <source-file src="android/GtSdkLib/x86_64/libgetuiext2.so" target-dir="libs/x86_64" />
+        <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext3.so" target-dir="libs/arm64-v8a" />
+        <source-file src="android/GtSdkLib/armeabi/libgetuiext3.so" target-dir="libs/armeabi" />
+        <source-file src="android/GtSdkLib/armeabi-v7a/libgetuiext3.so" target-dir="libs/armeabi-v7a" />
+        <source-file src="android/GtSdkLib/mips/libgetuiext3.so" target-dir="libs/mips" />
+        <source-file src="android/GtSdkLib/mips64/libgetuiext3.so" target-dir="libs/mips64" />
+        <source-file src="android/GtSdkLib/x86/libgetuiext3.so" target-dir="libs/x86" />
+        <source-file src="android/GtSdkLib/x86_64/libgetuiext3.so" target-dir="libs/x86_64" />
 
         <resource-file src="android/res/layout/getui_notification.xml" target="res/layout/getui_notification.xml" />
 
