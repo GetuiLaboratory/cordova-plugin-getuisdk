@@ -5,7 +5,7 @@
 //  Created by gexin on 15-5-5.
 //  Copyright (c) 2015年 Gexin Interactive (Beijing) Network Technology Co.,LTD. All rights reserved.
 //
-//  GTSDK-Version:2.3.0.0
+//  GTSDK-Version:2.3.1.0
 
 #import <Foundation/Foundation.h>
 
@@ -55,7 +55,7 @@ typedef enum {
 /**
  *  获取SDK版本号
  *
- *  当前GeTuiSdk版本：2.3.0.0
+ *  当前GeTuiSdk版本：2.3.1.0
  *  @return 版本值
  */
 + (NSString *)version;
@@ -110,21 +110,41 @@ typedef enum {
  *  向个推服务器注册DeviceToken
  *  备注：可以未启动SDK就调用该方法
  *
- *  @param deviceToken 推送时使用的deviceToken
+ *  @param deviceToken 推送时使用的deviceToken NSString
  *  @return deviceToken有效判断，YES.有效 NO.无效
  *
  */
 + (BOOL)registerDeviceToken:(NSString *)deviceToken;
 
 /**
+ *  向个推服务器注册DeviceToken
+ *  备注：可以未启动SDK就调用该方法
+ *
+ *  @param deviceToken 推送时使用的deviceToken NSData
+ *  @return deviceToken有效判断，YES.有效 NO.无效
+ *
+ */
++ (BOOL)registerDeviceTokenData:(NSData *)deviceToken;
+
+/**
  *  向个推服务器注册VoipToken
  *  备注：可以未启动SDK就调用该方法
  *
- *  @param voipToken 推送时使用的voipToken
+ *  @param voipToken 推送时使用的voipToken NSString
  *  @return voipToken有效判断，YES.有效 NO.无效
  *
  */
 + (BOOL)registerVoipToken:(NSString *)voipToken;
+
+/**
+ *  向个推服务器注册VoipToken
+ *  备注：可以未启动SDK就调用该方法
+ *
+ *  @param voipToken 推送时使用的voipToken NSData
+ *  @return voipToken有效判断，YES.有效 NO.无效
+ *
+ */
++ (BOOL)registerVoipTokenCredentials:(NSData *)voipToken;
 
 /**
  *  绑定别名功能:后台可以根据别名进行推送
@@ -189,7 +209,6 @@ typedef enum {
  */
 + (void)handleRemoteNotification:(NSDictionary *)userInfo;
 
-
 /**
  *  VOIP消息回执
  *
@@ -229,7 +248,7 @@ typedef enum {
  *  @param webUrl applink Url
  *  @return applink 中用户的 payload 信息
  */
-+ (NSString*) handleApplinkFeedback:(NSURL* ) webUrl;
++ (NSString*)handleApplinkFeedback:(NSURL* )webUrl;
 
 @end
 
@@ -300,5 +319,13 @@ typedef enum {
  *  @param aError       成功返回nil, 错误返回相应error信息
  */
 - (void)GeTuiSdkDidAliasAction:(NSString *)action result:(BOOL)isSuccess sequenceNum:(NSString *)aSn error:(NSError *)aError;
+
+/**
+ * 查询当前绑定tag结果返回
+ * @param aTags   当前绑定的 tag 信息
+ * @param aSn     返回 queryTag 接口中携带的请求序列码，标识请求对应的结果返回
+ * @param aError  成功返回nil,错误返回相应error信息
+ */
+- (void)GetuiSdkDidQueryTag:(NSArray*)aTags sequenceNum:(NSString *)aSn error:(NSError *)aError;
 
 @end
