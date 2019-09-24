@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-getuisdk"
-    version="1.1.9">
+    version="1.1.10">
     <name>GeTuiSdk</name>
     <description>getui sdk Plugin</description>
     <license>Apache 2.0</license>
@@ -59,6 +59,7 @@
         <framework src="AVFoundation.framework" weak="true"/>
         <framework src="UserNotifications.framework" weak="true"/>
         <framework src="PushKit.framework" weak="true"/>
+        <framework src="CallKit.framework" weak="true"/>
     </platform>
 
     <platform name="android">
