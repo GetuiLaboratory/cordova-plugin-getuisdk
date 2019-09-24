@@ -1,4 +1,3 @@
-cordova.define("cordova-plugin-getuisdk.GeTuiSdk", function(require, exports, module) {
 var exec = require('cordova/exec');
 var	argscheck = require('cordova/argscheck');
 
@@ -147,5 +146,3 @@ var GeTuiSdk = {
 	},
 };
 module.exports = GeTuiSdk;
-
-});
