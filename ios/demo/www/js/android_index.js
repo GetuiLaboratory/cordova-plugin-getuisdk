@@ -38,7 +38,7 @@ var app = {
     },
 
     onDeviceReady: function() {
-        StatusBar.styleDefault();
+        // StatusBar.styleDefault();
 
         $('#appkey').text(KAppKey);
         $('#appsecret').text(KAppSecret);

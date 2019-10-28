@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-getuisdk"
-    version="1.1.10">
+    version="1.1.11">
     <name>GeTuiSdk</name>
     <description>getui sdk Plugin</description>
     <license>Apache 2.0</license>
@@ -187,7 +187,7 @@
         </config-file>
 
         <source-file src="android/GtSdkLib/android-support-v4.jar" target-dir="libs"/>
-        <source-file src="android/GtSdkLib/GetuiSDK4.3.2.0.jar" target-dir="libs"/>
+        <source-file src="android/GtSdkLib/GetuiSDK4.3.5.9.jar" target-dir="libs"/>
 
         <source-file src="android/GtSdkLib/arm64-v8a/libgetuiext3.so" target-dir="libs/arm64-v8a" />
         <source-file src="android/GtSdkLib/armeabi/libgetuiext3.so" target-dir="libs/armeabi" />
