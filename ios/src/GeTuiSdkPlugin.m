@@ -49,7 +49,7 @@
 
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command {
     NSString *deviceToken = [command argumentAtIndex:0];
-    [GeTuiSdk registerDeviceToken:deviceToken];
+    [GeTuiSdk registerDeviceTokenData:deviceToken];
 }
 
 - (void)setPushModeOff:(CDVInvokedUrlCommand *)command {
