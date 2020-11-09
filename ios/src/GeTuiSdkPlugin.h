@@ -13,47 +13,59 @@
 
 - (void)startSdkWithAppId:(CDVInvokedUrlCommand *)command;
 - (void)destroy:(CDVInvokedUrlCommand *)command;
+- (void)resume:(CDVInvokedUrlCommand *)command;
+#pragma mark -
+- (void)version:(CDVInvokedUrlCommand *)command;
+- (void)clientId:(CDVInvokedUrlCommand *)command;
+- (void)status:(CDVInvokedUrlCommand *)command;
+#pragma mark -
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command;
-- (void)voipRegistrationWithVoipPushCallback:(CDVInvokedUrlCommand *)command;
-
+- (void)registerDeviceTokenData:(CDVInvokedUrlCommand *)command;
+- (void)registerVoipToken:(CDVInvokedUrlCommand *)command;
+- (void)registerVoipTokenCredentials:(CDVInvokedUrlCommand *)command;
+#pragma mark -
+- (void)setTags:(CDVInvokedUrlCommand *)command;
+- (void)setTagsAndSequenceNum:(CDVInvokedUrlCommand *)command;
+- (void)setBadge:(CDVInvokedUrlCommand*)command;
+- (void)resetBadge:(CDVInvokedUrlCommand*)command;
+- (void)setChannelId:(CDVInvokedUrlCommand *)command; // 1.5.0+
 - (void)setPushModeOff:(CDVInvokedUrlCommand *)command;
 - (void)setPushModeOn:(CDVInvokedUrlCommand *)command;
 - (void)bindAlias:(CDVInvokedUrlCommand *)command;
 - (void)unbindAlias:(CDVInvokedUrlCommand *)command;
-- (void)setTags:(CDVInvokedUrlCommand *)command;
+#pragma mark -
+- (void)handleRemoteNotification:(CDVInvokedUrlCommand *)command; // 1.5.0+ 远程推送消息处理
+- (void)handleVoipNotification:(CDVInvokedUrlCommand *)command;
+- (void)handleApplinkFeedback:(CDVInvokedUrlCommand *)command;
 - (void)sendMessage:(CDVInvokedUrlCommand * )command;
 - (void)sendFeedbackMessage:(CDVInvokedUrlCommand *)command;
+#pragma mark -
 - (void)runBackgroundEnable:(CDVInvokedUrlCommand *)command;
 - (void)runBackgroundDisable:(CDVInvokedUrlCommand *)command;
-- (void)resume:(CDVInvokedUrlCommand *)command;
-- (void)version:(CDVInvokedUrlCommand *)command;
-- (void)status:(CDVInvokedUrlCommand *)command;
-- (void)clientId:(CDVInvokedUrlCommand *)command;
+- (void)lbsLocationEnable:(CDVInvokedUrlCommand *)command;
 - (void)clearAllNotificationForNotificationBar:(CDVInvokedUrlCommand *)command;
-- (void)setBadge:(CDVInvokedUrlCommand*)command;
-- (void)resetBadge:(CDVInvokedUrlCommand*)command;
 
-- (void)setChannelId:(CDVInvokedUrlCommand *)command; // 1.5.0+
-- (void)handleRemoteNotification:(CDVInvokedUrlCommand *)command; // 1.5.0+ 远程推送消息处理
-
-- (void)setGeTuiSdkDidRegisterClientCallback:(CDVInvokedUrlCommand *)command;
-- (void)setGeTuiSdkDidReceivePayloadCallback:(CDVInvokedUrlCommand *)command;
-- (void)setGeTuiSdkDidSendMessageCallback:(CDVInvokedUrlCommand *)command;
-- (void)setGeTuiSdkDidOccurErrorCallback:(CDVInvokedUrlCommand *)command;
-- (void)setGeTuiSDkDidNotifySdkStateCallback:(CDVInvokedUrlCommand *)command;
-- (void)setGeTuiSdkDidSetPushModeCallback:(CDVInvokedUrlCommand *)command;
-- (void)setGeTuiSdkDidAliasActionCallback:(CDVInvokedUrlCommand *)command; // 1.5.0+
-
-//protocol GexinSdkDelegate
-
+#pragma mark - GeTuiSdkDelegate
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId;
+- (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus;
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId
                              andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId;
 - (void)GeTuiSdkDidSendMessage:(NSString *)messageId result:(int)result;
-- (void)GeTuiSdkDidOccurError:(NSError *)error;
-- (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus;
 - (void)GeTuiSdkDidSetPushMode:(BOOL)isModeOff error:(NSError *)error;
 - (void)GeTuiSdkDidAliasAction:(NSString *)action result:(BOOL)isSuccess sequenceNum:(NSString *)aSn error:(NSError *)aError;
+- (void)GeTuiSdkDidSetTagsAction:(NSString *)sequenceNum result:(BOOL)isSuccess error:(NSError *)aError;
+- (void)GetuiSdkDidQueryTag:(NSArray*)aTags sequenceNum:(NSString *)aSn error:(NSError *)aError;
+- (void)GeTuiSdkDidOccurError:(NSError *)error;
+
+- (void)setGeTuiSdkDidRegisterClientCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSDkDidNotifySdkStateCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidReceivePayloadCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidSendMessageCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidSetPushModeCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidAliasActionCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidTagsActionCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidQueryTagCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidOccurErrorCallback:(CDVInvokedUrlCommand *)command;
 
 // protocol PKPushRegistryDelegate
 

@@ -16,6 +16,8 @@
     NSString *_notifySdkStateCallbackId;
     NSString *_setPushModeCallbackId;
     NSString *_aliasActionCallbackId;
+    NSString *_tagsActionCallbackId;
+    NSString *_queryTagCallbackId;
     NSString *_didReceiveIncomingVoipPushCallback;
 }
 
@@ -29,7 +31,11 @@
         _receivePayloadCallbackId = nil;
         _sendMessageCallback = nil;
         _occurErrorCallbackId = nil;
+        _notifySdkStateCallbackId = nil;
+        _setPushModeCallbackId = nil;
         _aliasActionCallbackId = nil;
+        _tagsActionCallbackId = nil;
+        _queryTagCallbackId = nil;
         _didReceiveIncomingVoipPushCallback = nil;
     }
     return self;
@@ -47,9 +53,88 @@
     [GeTuiSdk destroy];
 }
 
+- (void)resume:(CDVInvokedUrlCommand *)command {
+    [GeTuiSdk resume];
+}
+
+- (void)version:(CDVInvokedUrlCommand *)command {
+    NSString *callbackId = command.callbackId;
+    NSString *version = [GeTuiSdk version];
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
+- (void)clientId:(CDVInvokedUrlCommand *)command {
+    NSString *callbackId = command.callbackId;
+
+    NSString *clientId = [GeTuiSdk clientId];
+
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:clientId];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
+- (void)status:(CDVInvokedUrlCommand *)command {
+    NSString *callbackId = command.callbackId;
+    SdkStatus status = [GeTuiSdk status];
+    
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:status];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
 - (void)registerDeviceToken:(CDVInvokedUrlCommand *)command {
+    NSString *deviceToken = [command argumentAtIndex:0];
+    [GeTuiSdk registerDeviceToken:deviceToken];
+}
+
+- (void)registerDeviceTokenData:(CDVInvokedUrlCommand *)command {
     NSData *deviceToken = [command argumentAtIndex:0];
     [GeTuiSdk registerDeviceTokenData:deviceToken];
+}
+
+- (void)registerVoipToken:(CDVInvokedUrlCommand *)command {
+    NSString *voipToken = [command argumentAtIndex:0];
+    [GeTuiSdk registerVoipToken:voipToken];
+}
+
+- (void)registerVoipTokenCredentials:(CDVInvokedUrlCommand *)command {
+    NSData *voipTokenCredentials = [command argumentAtIndex:0];
+    [GeTuiSdk registerVoipTokenCredentials:voipTokenCredentials];
+}
+
+- (void)setTags:(CDVInvokedUrlCommand *)command {
+    NSString *callbackId = command.callbackId;
+    NSArray *tags = [command argumentAtIndex:0];
+
+    BOOL result = [GeTuiSdk setTags:tags];
+
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
+- (void)setTagsAndSequenceNum:(CDVInvokedUrlCommand *)command {
+    NSString *callbackId = command.callbackId;
+    NSArray *tags = [command argumentAtIndex:0];
+    NSString *sequenceNum = [command argumentAtIndex:1];
+    BOOL result = [GeTuiSdk setTags:tags andSequenceNum:sequenceNum];
+
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}
+
+- (void)setBadge:(CDVInvokedUrlCommand *)command {
+    NSNumber* badge = [command argumentAtIndex:0];
+    int badgeValue = [badge intValue];
+    badgeValue = badgeValue >=0 ? badgeValue : 0;
+    [GeTuiSdk setBadge:badgeValue];
+}
+
+- (void)resetBadge:(CDVInvokedUrlCommand *)command {
+    [GeTuiSdk resetBadge];
+}
+
+- (void)setChannelId:(CDVInvokedUrlCommand *)command{
+    NSString *channelId = [command argumentAtIndex:0];
+    [GeTuiSdk setChannelId:channelId];
 }
 
 - (void)setPushModeOff:(CDVInvokedUrlCommand *)command {
@@ -69,16 +154,22 @@
 - (void)unbindAlias:(CDVInvokedUrlCommand *)command {
     NSString *alias = [command argumentAtIndex:0];
     NSString *sequenceNum = [command argumentAtIndex:1];
-    [GeTuiSdk unbindAlias:alias andSequenceNum:sequenceNum andIsSelf:true];}
+    [GeTuiSdk unbindAlias:alias andSequenceNum:sequenceNum andIsSelf:true];
+}
 
-- (void)setTags:(CDVInvokedUrlCommand *)command {
-    NSString *callbackId = command.callbackId;
-    NSArray *tags = [command argumentAtIndex:0];
+- (void)handleRemoteNotification:(CDVInvokedUrlCommand *)command{
+    NSDictionary *userInfo = [command argumentAtIndex:0];
+    [GeTuiSdk handleRemoteNotification:userInfo];
+}
 
-    BOOL result = [GeTuiSdk setTags:tags];
+- (void)handleVoipNotification:(CDVInvokedUrlCommand *)command {
+    NSDictionary *payload = [command argumentAtIndex:0];
+    [GeTuiSdk handleVoipNotification:payload];
+}
 
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:result];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+- (void)handleApplinkFeedback:(CDVInvokedUrlCommand *)command {
+    NSURL *webUrl = [command argumentAtIndex:0];
+    [GeTuiSdk handleApplinkFeedback:webUrl];
 }
 
 - (void)sendMessage:(CDVInvokedUrlCommand *)command {
@@ -118,88 +209,17 @@
     [GeTuiSdk runBackgroundEnable:false];
 }
 
-- (void)resume:(CDVInvokedUrlCommand *)command {
-    [GeTuiSdk resume];
-}
-
-- (void)version:(CDVInvokedUrlCommand *)command {
-    NSString *callbackId = command.callbackId;
-    NSString *version = [GeTuiSdk version];
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:version];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-}
-
-- (void)status:(CDVInvokedUrlCommand *)command {
-    NSString *callbackId = command.callbackId;
-    SdkStatus status = [GeTuiSdk status];
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:status];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-}
-
-- (void)clientId:(CDVInvokedUrlCommand *)command {
-    NSString *callbackId = command.callbackId;
-
-    NSString *clientId = [GeTuiSdk clientId];
-
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:clientId];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
-}
-
-- (void)setBadge:(CDVInvokedUrlCommand *)command {
-    NSNumber* badge = [command argumentAtIndex:0];
-    int badgeValue = [badge intValue];
-    badgeValue = badgeValue >=0 ? badgeValue : 0;
-    [GeTuiSdk setBadge:badgeValue];
-}
-
-- (void) resetBadge:(CDVInvokedUrlCommand *)command {
-    [GeTuiSdk resetBadge];
-}
-
--(void)setChannelId:(CDVInvokedUrlCommand *)command{
-    NSString *channelId = [command argumentAtIndex:0];
-    [GeTuiSdk setChannelId:channelId];
-}
-
-- (void)handleRemoteNotification:(CDVInvokedUrlCommand *)command{
-    NSDictionary *userInfo = [command argumentAtIndex:0];
-    [GeTuiSdk handleRemoteNotification:userInfo];
+- (void)lbsLocationEnable:(CDVInvokedUrlCommand *)command {
+    BOOL locationEnable = [command argumentAtIndex:0];
+    BOOL userVerif = [command argumentAtIndex:1];
+    [GeTuiSdk lbsLocationEnable:locationEnable andUserVerify:userVerif];
 }
 
 - (void)clearAllNotificationForNotificationBar:(CDVInvokedUrlCommand *)command {
     [GeTuiSdk clearAllNotificationForNotificationBar];
 }
 
-- (void)setGeTuiSdkDidRegisterClientCallback:(CDVInvokedUrlCommand *)command {
-    _registerClientCallbackId = command.callbackId;
-}
-
-- (void)setGeTuiSdkDidReceivePayloadCallback:(CDVInvokedUrlCommand *)command {
-    _receivePayloadCallbackId = command.callbackId;
-}
-
-- (void)setGeTuiSdkDidSendMessageCallback:(CDVInvokedUrlCommand *)command {
-    _sendMessageCallback = command.callbackId;
-}
-
-- (void)setGeTuiSdkDidOccurErrorCallback:(CDVInvokedUrlCommand *)command {
-    _occurErrorCallbackId = command.callbackId;
-}
-
-- (void)setGeTuiSDkDidNotifySdkStateCallback:(CDVInvokedUrlCommand *)command {
-    _notifySdkStateCallbackId = command.callbackId;
-}
-
-- (void)setGeTuiSdkDidSetPushModeCallback:(CDVInvokedUrlCommand *)command {
-    _setPushModeCallbackId = command.callbackId;
-}
-
-- (void)setGeTuiSdkDidAliasActionCallback:(CDVInvokedUrlCommand *)command {
-    _aliasActionCallbackId = command.callbackId;
-}
-
-
-//protocol GexinSdkDelegate
+#pragma mark - GeTuiSdkDelegate
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     if (!_registerClientCallbackId) {
         return;
@@ -209,9 +229,18 @@
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_registerClientCallbackId];
 }
+- (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {
+    if (!_notifySdkStateCallbackId) {
+        return;
+    }
+    
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:aStatus];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_notifySdkStateCallbackId];
+}
 
 
-- (void) GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId
+- (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId
                               andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
     if (!_receivePayloadCallbackId) {
         return;
@@ -240,27 +269,6 @@
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_sendMessageCallback];
-}
-
-- (void)GeTuiSdkDidOccurError:(NSError *)error {
-    if (!_occurErrorCallbackId) {
-        return;
-    }
-
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
-                                                  messageAsDictionary:[self errorToDict:error]];
-    [pluginResult setKeepCallbackAsBool:YES];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:_occurErrorCallbackId];
-}
-
-- (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {
-    if (!_notifySdkStateCallbackId) {
-        return;
-    }
-
-    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:aStatus];
-    [pluginResult setKeepCallbackAsBool:YES];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:_notifySdkStateCallbackId];
 }
 
 - (void)GeTuiSdkDidSetPushMode:(BOOL)isModeOff error:(NSError *)error {
@@ -293,12 +301,77 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_aliasActionCallbackId];
 }
 
-
-- (NSDictionary *)errorToDict:(NSError *)error {
-    return error ? @{ @"code" : @(error.code),
-                      @"desc" : error.localizedDescription }
-    : nil;
+- (void)GeTuiSdkDidSetTagsAction:(NSString *)sequenceNum result:(BOOL)isSuccess error:(NSError *)aError {
+    if (!_tagsActionCallbackId) {
+        return;
+    }
+    CDVPluginResult *pluginResult = nil;
+    [pluginResult setKeepCallbackAsBool:YES];
+    NSArray *array = [NSArray arrayWithObjects:sequenceNum,@(isSuccess),[self errorToDict:aError],nil];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_tagsActionCallbackId];
 }
+
+- (void)GetuiSdkDidQueryTag:(NSArray*)aTags sequenceNum:(NSString *)aSn error:(NSError *)aError {
+    if (!_queryTagCallbackId) {
+        return;
+    }
+    CDVPluginResult *pluginResult = nil;
+    [pluginResult setKeepCallbackAsBool:YES];
+    NSArray *array = [NSArray arrayWithObjects:aTags,aSn,[self errorToDict:aError],nil];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_queryTagCallbackId];
+}
+- (void)GeTuiSdkDidOccurError:(NSError *)error {
+    if (!_occurErrorCallbackId) {
+        return;
+    }
+
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                                  messageAsDictionary:[self errorToDict:error]];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_occurErrorCallbackId];
+}
+
+
+- (void)setGeTuiSdkDidRegisterClientCallback:(CDVInvokedUrlCommand *)command {
+    _registerClientCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSDkDidNotifySdkStateCallback:(CDVInvokedUrlCommand *)command {
+    _notifySdkStateCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidReceivePayloadCallback:(CDVInvokedUrlCommand *)command {
+    _receivePayloadCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidSendMessageCallback:(CDVInvokedUrlCommand *)command {
+    _sendMessageCallback = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidSetPushModeCallback:(CDVInvokedUrlCommand *)command {
+    _setPushModeCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidAliasActionCallback:(CDVInvokedUrlCommand *)command {
+    _aliasActionCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidTagsActionCallback:(CDVInvokedUrlCommand *)command {
+    _tagsActionCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidQueryTagCallback:(CDVInvokedUrlCommand *)command {
+    _queryTagCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidOccurErrorCallback:(CDVInvokedUrlCommand *)command {
+    _occurErrorCallbackId = command.callbackId;
+}
+
 
 #pragma mark - VOIP related
 
@@ -340,6 +413,10 @@
     _didReceiveIncomingVoipPushCallback = command.callbackId;
 }
 
-
+- (NSDictionary *)errorToDict:(NSError *)error {
+    return error ? @{ @"code" : @(error.code),
+                      @"desc" : error.localizedDescription }
+    : nil;
+}
 
 @end
