@@ -67,6 +67,12 @@
 - (void)setGeTuiSdkDidQueryTagCallback:(CDVInvokedUrlCommand *)command;
 - (void)setGeTuiSdkDidOccurErrorCallback:(CDVInvokedUrlCommand *)command;
 
+- (void)setGeTuiSdkGrantAuthorizationCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGetuiSdkWillPresentNotificationCallBack:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidReceiveNotificationCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkDidReceiveSlienceCallback:(CDVInvokedUrlCommand *)command;
+- (void)setGeTuiSdkOpenSettingsForNotificationCallback:(CDVInvokedUrlCommand *)command;
+
 // protocol PKPushRegistryDelegate
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(NSString *)type;

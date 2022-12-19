@@ -19,6 +19,12 @@
     NSString *_tagsActionCallbackId;
     NSString *_queryTagCallbackId;
     NSString *_didReceiveIncomingVoipPushCallback;
+    
+    NSString *_grantAuthorizationCallbackId;
+    NSString *_willPresentNotificationCallbackId;
+    NSString *_didReceiveNotificationCallbackId;
+    NSString *_didReceiveSlienceCallbackId;
+    NSString *_openSettingsForNotificationCallbackId;
 }
 
 @end
@@ -45,8 +51,9 @@
     NSString *appid = [command argumentAtIndex:0];
     NSString *appKey = [command argumentAtIndex:1];
     NSString *appSecret = [command argumentAtIndex:2];
+    NSDictionary *launchingOptions = [command argumentAtIndex:3];
 
-    [GeTuiSdk startSdkWithAppId:appid appKey:appKey appSecret:appSecret delegate:self];
+    [GeTuiSdk startSdkWithAppId:appid appKey:appKey appSecret:appSecret delegate:self launchingOptions:launchingOptions];
 }
 
 - (void)destroy:(CDVInvokedUrlCommand *)command {
@@ -220,25 +227,105 @@
 }
 
 #pragma mark - GeTuiSdkDelegate
+
+- (void)GetuiSdkGrantAuthorization:(BOOL)granted error:(nullable NSError*)error {
+    if (!_grantAuthorizationCallbackId) {
+        return;
+    }
+
+    CDVPluginResult *pluginResult = nil;
+    [pluginResult setKeepCallbackAsBool:YES];
+    if (error) {
+        NSArray *array = [NSArray arrayWithObjects:@(granted), [self errorToDict:error], nil];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsMultipart:array];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:granted];
+    }
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_grantAuthorizationCallbackId];
+}
+
+- (void)GeTuiSdkNotificationCenter:(UNUserNotificationCenter *)center
+           willPresentNotification:(UNNotification * )notification
+                 completionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    if(!_willPresentNotificationCallbackId) {
+        return;
+    }
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:notification.request.content.userInfo];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_willPresentNotificationCallbackId];
+    if(completionHandler) {
+        // [ 参考代码，开发者注意根据实际需求自行修改 ] 根据APP需要自行修改参数值
+        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+    }
+}
+
+- (void)GeTuiSdkDidReceiveNotification:(NSDictionary *)userInfo
+                    notificationCenter:(nullable UNUserNotificationCenter *)center
+                              response:(nullable UNNotificationResponse *)response
+                fetchCompletionHandler:(nullable void (^)(UIBackgroundFetchResult))completionHandler {
+    if(!_didReceiveNotificationCallbackId) {
+        return;
+    }
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:userInfo];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_didReceiveNotificationCallbackId];
+    if(completionHandler) {
+        // [ 参考代码，开发者注意根据实际需求自行修改 ] 根据APP需要自行修改参数值
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
+}
+
+- (void)GeTuiSdkDidReceiveSlience:(NSDictionary *)userInfo
+                        fromGetui:(BOOL)fromGetui
+                          offLine:(BOOL)offLine
+                            appId:(nullable NSString *)appId
+                           taskId:(nullable NSString *)taskId
+                            msgId:(nullable NSString *)msgId
+           fetchCompletionHandler:(nullable void (^)(UIBackgroundFetchResult))completionHandler {
+    if(!_didReceiveSlienceCallbackId) {
+        return;
+    }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic addEntriesFromDictionary:userInfo];
+    dic[@"fromGetui"] = @(fromGetui);
+    dic[@"offLine"] = @(offLine);
+    dic[@"appId"] = appId;
+    dic[@"taskId"] = taskId;
+    dic[@"msgId"] = msgId;
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dic];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_didReceiveSlienceCallbackId];
+}
+
+- (void)GeTuiSdkNotificationCenter:(UNUserNotificationCenter *)center
+       openSettingsForNotification:(nullable UNNotification *)notification {
+    if(!_openSettingsForNotificationCallbackId) {
+        return;
+    }
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:notification.request.content.userInfo];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:_openSettingsForNotificationCallbackId];
+}
+
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     if (!_registerClientCallbackId) {
         return;
     }
-
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:clientId];
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_registerClientCallbackId];
+    
 }
+
 - (void)GeTuiSDkDidNotifySdkState:(SdkStatus)aStatus {
     if (!_notifySdkStateCallbackId) {
         return;
     }
-    
     CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:aStatus];
     [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:_notifySdkStateCallbackId];
 }
-
 
 - (void)GeTuiSdkDidReceivePayloadData:(NSData *)payloadData andTaskId:(NSString *)taskId
                               andMsgId:(NSString *)msgId andOffLine:(BOOL)offLine fromGtAppId:(NSString *)appId {
@@ -372,6 +459,25 @@
     _occurErrorCallbackId = command.callbackId;
 }
 
+- (void)setGeTuiSdkGrantAuthorizationCallback:(CDVInvokedUrlCommand *)command {
+    _grantAuthorizationCallbackId = command.callbackId;
+}
+
+- (void)setGetuiSdkWillPresentNotificationCallBack:(CDVInvokedUrlCommand *)command {
+    _willPresentNotificationCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidReceiveNotificationCallback:(CDVInvokedUrlCommand *)command {
+    _didReceiveNotificationCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkDidReceiveSlienceCallback:(CDVInvokedUrlCommand *)command {
+    _didReceiveSlienceCallbackId = command.callbackId;
+}
+
+- (void)setGeTuiSdkOpenSettingsForNotificationCallback:(CDVInvokedUrlCommand *)command {
+    _openSettingsForNotificationCallbackId = command.callbackId;
+}
 
 #pragma mark - VOIP related
 

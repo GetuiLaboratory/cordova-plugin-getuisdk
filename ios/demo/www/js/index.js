@@ -57,6 +57,9 @@ var app = {
         GeTuiSdk.setGeTuiSdkDidSetPushModeCallback(app.onSetPushMode);
         GeTuiSdk.setGeTuiSdkDidAliasActionCallback(app.onSetAliasAction);
         GeTuiSdk.voipRegistrationWithVoipPushCallback(app.onReceiveVoipPayload);
+        GeTuiSdk.setGetuiSdkWillPresentNotificationCallBack(app.onWillPresentNotification);
+        GeTuiSdk.setGeTuiSdkDidReceiveNotificationCallback(app.onDidReceiveNotification);
+        GeTuiSdk.setGeTuiSdkDidReceiveSlienceCallback(app.onDidReceiveSlience);
 
         app.startGeTuiSdk();
 
@@ -68,7 +71,7 @@ var app = {
     },
 
     startGeTuiSdk: function() {
-        GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret);
+        GeTuiSdk.startSdkWithAppId(KAppId, KAppKey, KAppSecret, launchOptions);
     },
 
     registerRemoteNotification: function() {
@@ -104,6 +107,18 @@ var app = {
     
     onRegisterClient: function(clientId) {
         $('#clientId').val(clientId);
+    },
+
+    onWillPresentNotification: function(userInfo) {
+
+    },
+
+    onDidReceiveNotification: function(userInfo) {
+  
+    },
+
+    onDidReceiveSlience: function(userInfo) {
+
     },
 
     onReceivePayload: function(payloadData, taskId, msgId, offLine, appId) {

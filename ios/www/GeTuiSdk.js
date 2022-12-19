@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-getuisdk.GeTuiSdk", function(require, exports, module) {
 var exec = require('cordova/exec');
 var	argscheck = require('cordova/argscheck');
 
@@ -5,12 +6,13 @@ var GeTuiSdk = {
     GeTuiSdkStatus: {
         KSdkStatusStarting: 0,
         KSdkStatusStarted: 1,
-        KSdkStatusStoped: 2
+        KSdkStatusStoped: 2,
+        KSdkStatusOffline: 3
     },
 
-	startSdkWithAppId: function(appid, appKey, appSecret) {
+	startSdkWithAppId: function(appid, appKey, appSecret, launchingOptions) {
 		argscheck.checkArgs('sss', 'GeTuiSdk.startSdkWithAppId', arguments);
-		exec(null, null, 'GeTuiSdk', 'startSdkWithAppId', [appid, appKey, appSecret]);
+		exec(null, null, 'GeTuiSdk', 'startSdkWithAppId', [appid, appKey, appSecret, launchingOptions]);
 	},
 
 	destroy: function() {
@@ -181,7 +183,33 @@ var GeTuiSdk = {
     
     setGeTuiSdkDidOccurErrorCallback: function(callback) {
         argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidOccurErrorCallback', arguments);
-        exec(null, callback, 'GeTuiSdk', 'setGeTuiSdkDidOccurErrorCallback', []);
+        exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidOccurErrorCallback', []);
+    },
+
+    setGeTuiSdkGrantAuthorizationCallback: function(callback) {
+        argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkGrantAuthorizationCallback', arguments);
+        exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkGrantAuthorizationCallback', []);
+    },
+
+    setGetuiSdkWillPresentNotificationCallBack: function(callback) {
+        argscheck.checkArgs('f', 'GeTuiSdk.setGetuiSdkWillPresentNotificationCallBack', arguments);
+        exec(callback, null, 'GeTuiSdk', 'setGetuiSdkWillPresentNotificationCallBack', []);
+    },
+
+
+    setGeTuiSdkDidReceiveNotificationCallback: function(callback) {
+        argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidReceiveNotificationCallback', arguments);
+        exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidReceiveNotificationCallback', []);
+    },
+
+    setGeTuiSdkDidReceiveSlienceCallback: function(callback) {
+        argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkDidReceiveSlienceCallback', arguments);
+        exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkDidReceiveSlienceCallback', []);
+    },
+
+    setGeTuiSdkOpenSettingsForNotificationCallback: function(callback) {
+        argscheck.checkArgs('f', 'GeTuiSdk.setGeTuiSdkOpenSettingsForNotificationCallback', arguments);
+        exec(callback, null, 'GeTuiSdk', 'setGeTuiSdkOpenSettingsForNotificationCallback', []);
     },
 
     voipRegistrationWithVoipPushCallback: function(callback) {
@@ -190,3 +218,5 @@ var GeTuiSdk = {
 	},
 };
 module.exports = GeTuiSdk;
+
+});

@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-getuisdk"
-    version="1.1.14">
+    version="1.1.15">
     <name>GeTuiSdk</name>
     <description>getui sdk Plugin</description>
     <license>Apache 2.0</license>
@@ -45,7 +45,7 @@
         <header-file src="ios/src/GeTuiSdkPlugin.h" target-dir="src"/>
         <source-file src="ios/src/GeTuiSdkPlugin.m" target-dir="src" />
 
-        <framework src="ios/GtSdkLib/GTSDK.framework" weak="true" custom="true"/>
+        <framework src="ios/GtSdkLib/GTSDK.xcframework" weak="true" custom="true"/>
 
         <framework src="libresolv.tbd" weak="true"/>
         <framework src="libsqlite3.tbd" weak="true"/>
@@ -58,6 +58,8 @@
         <framework src="SystemConfiguration.framework" weak="true"/>
         <framework src="AVFoundation.framework" weak="true"/>
         <framework src="UserNotifications.framework" weak="true"/>
+        <framework src="AppTrackingTransparency.framework" weak="true"/>
+        <framework src="Network.framework" weak="true"/>
         <framework src="PushKit.framework" weak="true"/>
         <framework src="CallKit.framework" weak="true"/>
     </platform>

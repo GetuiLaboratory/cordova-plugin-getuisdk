@@ -129,6 +129,8 @@ cordova plugin add phonegap-plugin-push --variable SENDER_ID="My Sender ID"
 
 phonegap-plugin-push 是 cordova 官方插件，需要考虑与 cordova 以及 cordova-ios 工具的兼容性问题，否则不能正常使用该插件。推荐的兼容性版本配置为：cordova@8.0.0、cordova-ios@4.4.0 、phonegap-plugin-push@1.8.4
 
+* GTSDK需要swift5以上环境，建议在xcode工程中新建一个swift文件配置环境
+
 * JS文件中进行个推初始化
 
 ##### 回调函数
@@ -138,15 +140,20 @@ function onRegisterClient(clientId) {
 	//TODO clientId = clinetid   
 }；
 
-//透传数据返回
-function onReceivePayload(payloadId, taskId, msgId, offLine, appId) {
-     //TODO playload = 透传数据
-	 //TODO taskId = 推送消息的任务id
-	 //TODO msgId = 推送消息的messageid
-	 //TODO offLine = 是否是离线消息，YES.是离线消息
-	 //TODO appId = 应用的appId
+//将要展示通知 是否展示回调在oc层 开发者可定制
+function onWillPresentNotification(userInfo) {
 
-};
+}；
+
+//收到通知 常用语点击通知回调
+function onDidReceiveNotification(userInfo) {
+  
+}；
+
+//收到透传消息
+function onDidReceiveSlience(userInfo) {
+  
+}；
 
 //发送上行消息返回
 function onSendMessage(messageId, result) {
