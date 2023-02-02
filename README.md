@@ -255,6 +255,11 @@ push.on('error', onError);
 
 ![voip权限](http://docs.getui.com/img/img_getui_mobile_ios_xcode_19.png)
 
+**注意：** 
+
+Apple 在 iOS 10 中新增了Notification Service Extension机制，可在消息送达时进行业务处理。为精确统计消息送达率，在集成个推SDK时，可以添加 Notification Service Extension，并在 Extensions 中添加 GTExtensionSDK 的统计接口，实现消息展示回执统计功能。具体可参考[个推集成文档](https://docs.getui.com/getui/mobile/ios/xcode/)。
+
+
 ## 参考文档
 
 [iOS Demo 链接](https://github.com/GetuiLaboratory/cordova-plugin-getuisdk/tree/master/ios/demo/www)  
