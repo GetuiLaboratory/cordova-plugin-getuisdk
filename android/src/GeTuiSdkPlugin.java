@@ -198,7 +198,7 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
 
     //接口 PushManager 中的 stopService,接口 PushManager 中的, 停止SDK服务, 服务不会终止运行, 只是终止推送和联网功能。
     public void stopService() {
-    	PushManager.getInstance().stopService(con);
+    	// PushManager.getInstance().stopService(con);
     }
 
     //接口 PushManager 中的 isPushTurnedOn, 获取当前SDK的服务状态。
