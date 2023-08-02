@@ -40,6 +40,7 @@ public class CordovaIntentService extends GTIntentService {
     private final int CALLBACK_ISONLINE = 4;
     private final int CALLBACK_NOTIFICATION_ARRIVED = 5;
     private final int CALLBACK_NOTIFICATION_CLICKED = 6;
+    private final int CALLBACK_DEVICE_TOKEN = 7;
     
     // 为了观察透传数据变化.
     private static int cnt;
@@ -53,7 +54,6 @@ public class CordovaIntentService extends GTIntentService {
             handler.sendMessage(handler.obtainMessage(type, bean));
         }
     }
-
 
     // Handler处理器， 调用JS中的回调函数
     private Handler handler = new Handler(Looper.getMainLooper()) {
@@ -95,6 +95,10 @@ public class CordovaIntentService extends GTIntentService {
                     String clicked = "javascript:GeTuiSdkPlugin.callback_data('onNotificationClicked','"+ bean.getNotificationMessage()+"')";
                     cordovaWebViewReceiver.loadUrl(clicked);
                     break;
+                case CALLBACK_DEVICE_TOKEN:
+                    String deviceToken = "javascript:GeTuiSdkPlugin.callback_data('deviceToken','"+ bean.getDeviceToken()+"')";
+                    cordovaWebViewReceiver.loadUrl(deviceToken);
+                    break;
                 default:
                     break;
             }
@@ -134,8 +138,6 @@ public class CordovaIntentService extends GTIntentService {
 
     }
 
-
-
     // 获取ClientID(CID)
     // 第三方应用需要将CID上传到第三方服务器，并且将当前用户帐号和CID进行关联，以便日后通过用户帐号查找CID进行消息推送
     @Override
@@ -146,7 +148,6 @@ public class CordovaIntentService extends GTIntentService {
         dealWithEvents(CALLBACK_CID, bean);
     }
 
-
     @Override
     public void onReceiveOnlineState(Context context, boolean online) {
         Log.d(TAG, "onReceiveOnlineState -> " + (online ? "online" : "offline"));
@@ -154,7 +155,6 @@ public class CordovaIntentService extends GTIntentService {
         bean.setOnline(online);
         dealWithEvents(CALLBACK_ISONLINE, bean);
     }
-
 
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) { }
@@ -190,5 +190,12 @@ public class CordovaIntentService extends GTIntentService {
         dealWithEvents(CALLBACK_NOTIFICATION_CLICKED,bean);
     }
 
+    @Override
+    public void onReceiveDeviceToken(Context context, String deviceToken) {
+        Log.d(TAG, "onReceiveDeviceToken -> " + "deviceToken = " + deviceToken);
+        bean = new GeTuiSdkPushBean();
+        bean.setDeviceToken(deviceToken);
+        dealWithEvents(CALLBACK_DEVICE_TOKEN,bean);
+    }
 
 }

@@ -7,6 +7,7 @@ public class GeTuiSdkPushBean {
 	private String cid;
 	private boolean isOnline;
 	private String notificationMessage;
+	private String deviceToken;
 
 	public int getPid() {
 		return pid;
@@ -43,5 +44,9 @@ public class GeTuiSdkPushBean {
 	public void setNotificationMessage(String msg){ this.notificationMessage = msg; }
 
 	public String getNotificationMessage(){return notificationMessage; }
+
+	public void setDeviceToken(String token){ this.deviceToken = token; }
+
+	public String getDeviceToken(){return deviceToken; }
 
 }

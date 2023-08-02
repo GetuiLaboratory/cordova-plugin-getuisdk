@@ -108,7 +108,17 @@ var GeTuiSdkPlugin = {
 		exec(callback, null, 'GeTuiSdkPlugin', 'unSelfBindAlias', [ alias ]);
 	},
 	
-	
+	// 接口 PushManager 中的 setBadgeNum, 设置角标
+	setBadgeNum : function(callback, badgeNum) {
+		argscheck.checkArgs('FN', 'GeTuiSdkPlugin.setBadgeNum', arguments);
+		exec(callback, null, 'GeTuiSdkPlugin', 'setBadgeNum', [ badgeNum ]);
+	},
+
+	areNotificationsEnabled : function(callback) {
+		argscheck.checkArgs('F', 'GeTuiSdkPlugin.areNotificationsEnabled',
+				arguments);
+		exec(callback, null, 'GeTuiSdkPlugin', 'areNotificationsEnabled', []);
+	}
 
 };
 

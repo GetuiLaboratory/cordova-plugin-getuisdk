@@ -24,7 +24,11 @@ cordova plugin add cordova-plugin-getuisdk --variable PUSH_APPID=你的appid --v
 ```
 cordova platform add android@6.4.0
 在cordova8.0.0版本platform add默认是使用android@7.0.0/文件的工程目录发生了变化。暂时有兼容问题，建议使用android@6.4.0
+<<<<<<< HEAD
 更新至npm1.1.5，更新sdk至gtsdk-3.2.15.0
+=======
+更新至npm1.1.6，更新sdk至gtsdk-3.2.15.0，替换so为libgetuiext3.so
+>>>>>>> e8a2017 ([feature]-新增设置角标&获取厂商token&检测用户是否开启通知权限方法)
 ```
 * 如果你希望使用CordovaAndroid@7.0
 
@@ -64,11 +68,13 @@ function callback(type, data) {
 		} else {
 			//TODO 已离线
 		}
-    }else if(type == 'onNotificationArrived') {
-          alert('onNotificationArrived' + data) //通知到达回调
+    } else if(type == 'onNotificationArrived') {
+        alert('onNotificationArrived' + data) //通知到达回调
     } else if(type == 'onNotificationClicked') {
-          alert('onNotificationClicked' + data) //点击通知事件回调
-    }
+        alert('onNotificationClicked' + data) //点击通知事件回调
+    } else if (type == 'deviceToken') {
+		alert('deviceToken' + data) //厂商 deviceToken
+	}
 };
 ```
 ##### 初始化插件

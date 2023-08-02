@@ -236,7 +236,19 @@ public class GeTuiSdkPlugin extends CordovaPlugin {
     	return PushManager.getInstance().unBindAlias(con, alias, isSelf);
     }
 
+	/**
+	 * 设置角标
+	 */
+	public boolean setBadgeNum(int badgeNum) {
+		return PushManager.getInstance().setBadgeNum(con, badgeNum);
+	}
 
-
+	/**
+	 * 检测用户设备是否开启通知权限
+	 */
+	public boolean areNotificationsEnabled() {
+		return PushManager.getInstance().areNotificationsEnabled(con);
+	}
+	
 
 }
