@@ -74,7 +74,7 @@ var GeTuiSdkPlugin = {
 	// 接口 PushManager 中的 turnOffPush, 关闭Push推送, 关闭后则无法收到推送消息。
 	turnOffPush : function() {
 		exec(null, null, 'GeTuiSdkPlugin', 'turnOffPush', []);
-		callback_impl = obj;
+		callback_impl = null;
 	},
 
 	// 接口 PushManager 中的 sendFeedbackMessage, 上行第三方自定义回执actionid。
